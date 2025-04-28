@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@theme {
+  --font-body: var(--font-body);
+  --font-header: var(--font-header);
+  --font-mono: var(--font-mono);
+
+  /* Default font family */
+  --default-font-family: var(--font-body);
+
+  --color-foreground: var(--color-black);
+  --color-background: var(--color-white);
+
+  --text-9xl: 8rem;
+  --text-8xl: 6rem;
+  --text-7xl: 4.5rem;
+  --text-6xl: 3.75rem;
+  --text-5xl: 3rem;
+  --text-4xl: 2.25rem;
+  --text-3xl: 1.875rem;
+  --text-2xl: 1.5rem;
+  --text-xl: 1.25rem;
+  --text-lg: 1.125rem;
+  --text-base: 1rem;
+  --text-sm: 0.875rem;
+  --text-xs: 0.75rem;
+
+  --text-9xl--line-height: 1;
+  --text-8xl--line-height: 1;
+  --text-7xl--line-height: 1;
+  --text-6xl--line-height: 1;
+  --text-5xl--line-height: 1;
+  --text-4xl--line-height: 2.5rem;
+  --text-3xl--line-height: 2.25rem;
+  --text-2xl--line-height: 2rem;
+  --text-xl--line-height: 1.75rem;
+  --text-lg--line-height: 1.75rem;
+  --text-base--line-height: 1.5rem;
+  --text-sm--line-height: 1.25rem;
+  --text-xs--line-height: 1rem;
+}
+
+@layer base {
+  * {
+    @apply scrollbar-thumb-blue-700/50 scrollbar-track-blue-700/25 scrollbar-thin
+    scrollbar-hover:scrollbar-thumb-blue-700/75 scrollbar-active:scrollbar-thumb-blue-700;
+  }
+
+  html {
+    @apply scroll-smooth
+    overflow-x-hidden;
+  }
+
+  body {
+    @apply bg-background text-foreground
+    text-base antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6, blockquote, caption, figcaption, p, small {
+    @apply text-pretty;
+  }
+
+  h1, h2, h3, h4, h5, h6, button, [role="button"] {
+    @apply font-header;
+  }
+
+  button, [role=button] {
+    @apply cursor-pointer;
+  }
+
+  b, strong {
+    @apply font-bold;
+  }
+}
+
+@utility visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  @apply absolute whitespace-nowrap overflow-hidden
+  h-0.25 w-0.25;
+}
+
+@plugin "tailwind-scrollbar";
