@@ -51,6 +51,8 @@ export const useFormField = () => {
   };
 };
 
+export const Form = FormProvider;
+
 export function FormItem(props: FormItemProps) {
   const id = useId();
   const {className, ...rest} = props;
@@ -137,5 +139,3 @@ export const FormField = <
     </FormFieldContext.Provider>
   );
 };
-
-export default FormProvider;

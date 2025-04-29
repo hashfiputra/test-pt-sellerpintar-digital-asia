@@ -8,18 +8,19 @@ import axios from "axios";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 
 import Brand from "@ui/Brand";
 import Input from "@ui/Input";
 import Button from "@ui/Button";
-import Form, { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@ui/Form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@ui/Form";
 
 import type { LoginSchema } from "@lib/auth";
 import { loginSchema } from "@lib/auth";
 
 export default function Login() {
   const router = useRouter();
+  const [visible, setVisible] = useState(false);
   const [requesting, setRequesting] = useState(false);
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
@@ -66,7 +67,11 @@ export default function Login() {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="Input password" {...field}/>
+                    <div className="login__password">
+                      <Input type={visible ? "text" : "password"} placeholder="Input password" {...field}/>
+                      {!visible && <Eye className="login__password-eye" onClick={() => setVisible(true)}/>}
+                      {visible && <EyeOff className="login__password-eye" onClick={() => setVisible(false)}/>}
+                    </div>
                   </FormControl>
                   <FormMessage/>
                 </FormItem>
@@ -79,7 +84,7 @@ export default function Login() {
           </Button>
           <span className="login__help">
             <span className="login__help-text">Don’t have an account? </span>
-            <Link className="login__help-link" href="/register">Register</Link>
+            <Link className="login__help-link" href="/auth/register">Register</Link>
           </span>
         </form>
       </Form>

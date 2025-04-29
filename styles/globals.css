@@ -24,6 +24,7 @@
   --destructive-foreground: var(--color-slate-50);
   --muted-foreground: var(--color-slate-500);
   --accent-foreground: var(--color-slate-900);
+  --select-foreground: var(--color-gray-900);
 
   --border: var(--color-slate-200);
   --input: var(--color-slate-200);
@@ -63,6 +64,7 @@
   --destructive-foreground: oklch(0.985 0.002 247.839);
   --muted-foreground: oklch(0.707 0.022 261.325);
   --accent-foreground: oklch(0.985 0.002 247.839);
+  --select-foreground: oklch(0.985 0.002 247.839);
 
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
@@ -142,6 +144,7 @@
   --color-destructive-foreground: var(--destructive-foreground);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent-foreground: var(--accent-foreground);
+  --color-select-foreground: var(--select-foreground);
 
   --color-border: var(--border);
   --color-input: var(--input);
@@ -460,11 +463,69 @@
     w-full;
   }
 
+  .login__password {
+    @apply relative;
+
+    input {
+      @apply pr-10;
+    }
+
+    .login__password-eye {
+      @apply absolute top-1/2 right-3 -translate-y-1/2
+      size-4 text-slate-600 cursor-pointer z-10;
+    }
+  }
+
   .login__help {
     @apply text-sm
     text-slate-600;
 
     .login__help-link {
+      @apply text-blue-600
+      underline;
+    }
+  }
+}
+
+@utility register {
+  @apply flex
+  items-center justify-center
+  transition-[height] duration-500 ease-out
+  px-4 h-svh;
+
+  .register__form {
+    @apply flex flex-col gap-6
+    items-center justify-center
+    px-2.5 py-6 w-full max-w-100;
+  }
+
+  .register__brand {
+    @apply h-6;
+  }
+
+  .register__fields {
+    @apply flex flex-col gap-3
+    w-full;
+  }
+
+  .register__password {
+    @apply relative;
+
+    input {
+      @apply pr-10;
+    }
+
+    .register__password-eye {
+      @apply absolute top-1/2 right-3 -translate-y-1/2
+      size-4 text-slate-600 cursor-pointer z-10;
+    }
+  }
+
+  .register__help {
+    @apply text-sm
+    text-slate-600;
+
+    .register__help-link {
       @apply text-blue-600
       underline;
     }
