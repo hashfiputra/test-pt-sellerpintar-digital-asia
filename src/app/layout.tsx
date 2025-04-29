@@ -5,8 +5,11 @@ import type { ReactNode } from "react";
 import type { Metadata } from "next";
 
 import Link from "next/link";
+import { ThemeProvider } from "next-themes";
 
 import Comments from "@common/Comments";
+
+import Toaster from "@ui/Toast";
 
 export const metadata: Metadata = {
   title: {
@@ -26,13 +29,16 @@ export default function HomeLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en" className={fontVariables}>
+    <html lang="en" className={fontVariables} suppressHydrationWarning>
     <body>
     <Comments/>
     <Link className="visually-hidden" href="./#skip">
       Skip to main content
     </Link>
-    {children}
+    <ThemeProvider defaultTheme="light">
+      {children}
+      <Toaster richColors closeButton/>
+    </ThemeProvider>
     </body>
     </html>
   );

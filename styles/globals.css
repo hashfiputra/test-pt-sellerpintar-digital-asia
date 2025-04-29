@@ -14,19 +14,19 @@
   --secondary: var(--color-slate-200);
   --destructive: var(--color-red-600);
   --muted: oklch(0.967 0.003 264.542);
-  --accent: oklch(0.967 0.003 264.542);
+  --accent: var(--color-slate-100);
 
   --foreground: var(--color-slate-900);
-  --card-foreground: oklch(0.13 0.028 261.692);
-  --popover-foreground: oklch(0.13 0.028 261.692);
+  --card-foreground: var(--color-slate-900);
+  --popover-foreground: var(--color-slate-900);
   --primary-foreground: var(--color-slate-50);
   --secondary-foreground: var(--color-slate-900);
   --destructive-foreground: var(--color-slate-50);
-  --muted-foreground: oklch(0.551 0.027 264.364);
-  --accent-foreground: oklch(0.21 0.034 264.665);
+  --muted-foreground: var(--color-slate-500);
+  --accent-foreground: var(--color-slate-900);
 
-  --border: oklch(0.928 0.006 264.531);
-  --input: oklch(0.928 0.006 264.531);
+  --border: var(--color-slate-200);
+  --input: var(--color-slate-200);
   --ring: oklch(0.707 0.022 261.325);
 
   --chart-1: oklch(0.646 0.222 41.116);
@@ -436,6 +436,38 @@
 
   b, strong {
     @apply font-bold;
+  }
+}
+
+@utility login {
+  @apply flex
+  items-center justify-center
+  transition-[height] duration-500 ease-out
+  px-4 h-svh;
+
+  .login__form {
+    @apply flex flex-col gap-6
+    items-center justify-center
+    px-2.5 py-6 w-full max-w-100;
+  }
+
+  .login__brand {
+    @apply h-6;
+  }
+
+  .login__fields {
+    @apply flex flex-col gap-3
+    w-full;
+  }
+
+  .login__help {
+    @apply text-sm
+    text-slate-600;
+
+    .login__help-link {
+      @apply text-blue-600
+      underline;
+    }
   }
 }
 
