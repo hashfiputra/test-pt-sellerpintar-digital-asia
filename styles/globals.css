@@ -17,7 +17,7 @@
   --destructive: var(--color-red-600);
   --muted: var(--color-blue-200);
   --accent: var(--color-slate-100);
-  --footer: --alpha(var(--color-blue-600) / 86%);
+  --section-overlay: --alpha(var(--color-blue-600) / 86%);
 
   --foreground: var(--color-slate-900);
   --card-foreground: var(--color-slate-900);
@@ -30,7 +30,7 @@
   --muted-foreground: var(--color-slate-500);
   --accent-foreground: var(--color-blue-900);
   --select-foreground: var(--color-gray-900);
-  --footer-foreground: var(--color-white);
+  --section-overlay-foreground: var(--color-white);
 
   --border: var(--color-slate-200);
   --input: var(--color-slate-200);
@@ -63,7 +63,7 @@
   --destructive: oklch(0.704 0.191 22.216);
   --muted: oklch(0.278 0.033 256.848);
   --accent: oklch(0.278 0.033 256.848);
-  --footer: oklch(0.928 0.006 264.531);
+  --section-overlay: oklch(0.928 0.006 264.531);
 
   --foreground: oklch(0.985 0.002 247.839);
   --card-foreground: oklch(0.985 0.002 247.839);
@@ -76,7 +76,7 @@
   --muted-foreground: oklch(0.707 0.022 261.325);
   --accent-foreground: oklch(0.985 0.002 247.839);
   --select-foreground: oklch(0.985 0.002 247.839);
-  --footer-foreground: oklch(0.21 0.034 264.665);
+  --section-overlay-foreground: oklch(0.21 0.034 264.665);
 
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
@@ -149,7 +149,7 @@
   --color-destructive: var(--destructive);
   --color-muted: var(--muted);
   --color-accent: var(--accent);
-  --color-footer: var(--footer);
+  --color-section-overlay: var(--section-overlay);
 
   --color-foreground: var(--foreground);
   --color-card-foreground: var(--card-foreground);
@@ -162,7 +162,7 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent-foreground: var(--accent-foreground);
   --color-select-foreground: var(--select-foreground);
-  --color-footer-foreground: var(--footer-foreground);
+  --color-section-overlay-foreground: var(--section-overlay-foreground);
 
   --color-overlay: oklch(0.15 0.007 270.977 / 0.4);
   --color-border: var(--border);
@@ -463,6 +463,73 @@
   }
 }
 
+@utility home {
+  #hero {
+    @apply relative flex
+    items-center justify-center
+    px-5 pt-26 pb-15 w-full h-156
+    bg-section-overlay text-section-overlay-foreground;
+
+    &::before {
+      @apply content-empty
+      absolute inset-0 w-full h-full
+      pointer-events-none -z-10
+      bg-center bg-cover opacity-86;
+      background-image: url("../public/illustration-hero.webp");
+    }
+
+    .container {
+      @apply flex flex-col
+      items-center justify-center gap-10;
+    }
+
+    .headline {
+      @apply flex flex-col
+      items-center justify-center gap-3
+      text-center;
+
+      h1 {
+        @apply text-4xl font-medium;
+      }
+
+      h2 {
+        @apply text-xl font-normal;
+      }
+
+      h3 {
+        @apply text-sm font-bold;
+      }
+    }
+
+    .filters {
+      @apply flex flex-col gap-2
+      bg-blue-500 rounded-[12px]
+      px-2.5 py-2.5 w-full;
+
+      .filters__category {
+        @apply rounded-sm;
+
+        .lucide-chevron-down {
+          @apply text-slate-900;
+        }
+      }
+
+      .filters__search {
+        @apply relative;
+
+        .filters__search-icon {
+          @apply absolute top-1/2 left-3 -translate-y-1/2
+          size-4 text-slate-400 pointer-events-none;
+        }
+
+        .filters__search-control {
+          @apply !pl-9;
+        }
+      }
+    }
+  }
+}
+
 @utility login {
   @apply flex
   items-center justify-center
@@ -493,7 +560,7 @@
 
     .login__password-eye {
       @apply absolute top-1/2 right-3 -translate-y-1/2
-      size-4 text-slate-600 cursor-pointer z-10;
+      size-4 text-slate-600 opacity-50 cursor-pointer z-10;
     }
   }
 
@@ -527,6 +594,10 @@
   .register__fields {
     @apply flex flex-col gap-3
     w-full;
+
+    .lucide-chevron-down {
+      @apply text-gray-600;
+    }
   }
 
   .register__password {
@@ -538,7 +609,7 @@
 
     .register__password-eye {
       @apply absolute top-1/2 right-3 -translate-y-1/2
-      size-4 text-slate-600 cursor-pointer z-10;
+      size-4 text-slate-600 opacity-50 cursor-pointer z-10;
     }
   }
 
@@ -572,6 +643,10 @@
     @apply h-5.5;
   }
 
+  .header__img path {
+    @apply transition-colors duration-250 ease-out;
+  }
+
   .header__login {
     @apply flex
     items-center justify-center
@@ -586,7 +661,7 @@
 @utility footer {
   @apply flex flex-col
   items-center justify-center
-  bg-footer text-footer-foreground
+  bg-section-overlay text-section-overlay-foreground
   w-full h-25 px-12;
 
   .footer__content {
@@ -601,6 +676,10 @@
   .footer__copyright {
     @apply text-sm;
   }
+}
+
+@utility content-empty {
+  content: "";
 }
 
 @plugin "tailwind-scrollbar";

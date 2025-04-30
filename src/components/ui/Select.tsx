@@ -34,7 +34,7 @@ export function SelectTrigger(props: SelectTriggerProps) {
   const { className, children, ...rest } = props;
   const classes = classMerge(
     "flex items-center justify-between gap-2 " +
-    "bg-transparent text-select-foreground text-sm px-3 py-2 h-10 w-full " +
+    "bg-background text-select-foreground text-sm px-3 py-2 h-10 w-full " +
     "border border-input rounded-md outline-none " +
     "whitespace-nowrap transition-[color,box-shadow] " +
     "dark:bg-input/30 dark:hover:bg-input/50 " +

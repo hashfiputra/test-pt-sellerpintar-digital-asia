@@ -32,16 +32,23 @@ export type HeaderProps = {
 
 export default function Header({ fixed, border = true }: HeaderProps) {
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { authenticated, username, role } = useSession() || {};
   const initial = useMemo(() => username?.charAt(0).toUpperCase(), [username]);
 
   useEffect(() => {
     if (fixed) return setScrolled(true);
+    if (!mounted) {
+      setScrolled(window.scrollY > 10);
+      setMounted(true);
+    }
+
     const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
+
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [fixed]);
+  }, [fixed, mounted]);
 
   const onLogOut = useCallback(async () => {
     const { data, status } = await axios.get("/api/auth/logout");
@@ -55,7 +62,7 @@ export default function Header({ fixed, border = true }: HeaderProps) {
   return (
     <header className="header" id="header" data-scrolled={scrolled} data-border={border}>
       <Link className="header__brand" href="/">
-        <Brand className="header__img" theme="light"/>
+        <Brand className="header__img" theme={scrolled ? "light" : "dark"}/>
       </Link>
       {authenticated && (
         <Dialog>
