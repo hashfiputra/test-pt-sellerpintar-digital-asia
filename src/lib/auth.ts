@@ -4,28 +4,20 @@ import { jwtVerify, SignJWT } from "jose";
 const SECRET_KEY = process.env.SESSION_SECRET;
 const ENCODED_KEY = new TextEncoder().encode(SECRET_KEY);
 
+export type User = {
+  id: string;
+  username: string;
+  role: "User" | "Admin";
+};
+
+export type UserEncrypt = {
+  token: string;
+  username: User["username"];
+  role: User["role"];
+};
+
 export type LoginSchema = z.infer<typeof loginSchema>;
 export type RegisterSchema = z.infer<typeof registerSchema>;
-
-export type LoginResponse = {
-  token: string;
-  role: RegisterResponse["role"];
-  error?: string;
-};
-
-export type RegisterResponse = {
-  "username": string;
-  "password": string;
-  "role": "User" | "Admin",
-  "createdAt": string;
-  "updatedAt": string;
-};
-
-export type EncryptPayload = {
-  token: LoginResponse["token"];
-  username: LoginSchema["username"];
-  role: LoginResponse["role"];
-};
 
 export const loginSchema = z.object({
   username: z.string().nonempty("Please enter your username"),
@@ -48,7 +40,7 @@ export const registerSchema = z.object({
   }),
 });
 
-export async function encrypt(payload: EncryptPayload) {
+export async function encrypt(payload: UserEncrypt) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
@@ -58,7 +50,7 @@ export async function encrypt(payload: EncryptPayload) {
 
 export async function decrypt(jwt: string | undefined = "") {
   const options = { algorithms: ["HS256"] };
-  const { payload } = await jwtVerify<EncryptPayload>(jwt, ENCODED_KEY, options);
+  const { payload } = await jwtVerify<UserEncrypt>(jwt, ENCODED_KEY, options);
 
   return payload;
 }

@@ -20,3 +20,25 @@ export function toNumber(value?: string | null, fallback: number = 0) {
   const valid = Number.isFinite(parsed);
   return valid ? parsed : fallback;
 }
+
+export function getExcerpt(html: string, min: number = 50, max: number = 100) {
+  const text = html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  if (text.length <= min) return text;
+
+  const excerpt = text.slice(0, max);
+  const postfix = text.length > max ? "..." : "";
+
+  return excerpt + postfix;
+}
+
+export function getDate(time: string) {
+  const number = toNumber(time);
+  const date = new Date(number);
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+
+  return date.toLocaleDateString("en-US", options);
+}

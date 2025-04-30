@@ -11,7 +11,7 @@ import { Eye, EyeOff, Loader2 } from "lucide-react";
 
 import Brand from "@ui/Brand";
 import Input from "@ui/Input";
-import Button from "@ui/Button";
+import { Button } from "@ui/Button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@ui/Form";
 import { Select, SelectValue, SelectTrigger, SelectContent, SelectItem } from "@ui/Select";
 

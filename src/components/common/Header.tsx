@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 import Brand from "@ui/Brand";
-import Button from "@ui/Button";
+import { Button } from "@ui/Button";
 import { Avatar, AvatarFallback } from "@ui/Avatar";
 import { Dropdown, DropdownTrigger, DropdownContent, DropdownItem } from "@ui/Dropdown";
 import {

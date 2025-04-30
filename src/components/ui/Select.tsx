@@ -3,13 +3,14 @@
 import type { ComponentProps } from "react";
 
 import * as Primitive from "@radix-ui/react-select";
-import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
+import { CheckIcon, ChevronDownIcon, ChevronUpIcon, X } from "lucide-react";
 
 import { classMerge } from "@lib/utils";
 
 export type SelectProps = ComponentProps<typeof Primitive.Root>;
 export type SelectGroupProps = ComponentProps<typeof Primitive.Group>;
 export type SelectValueProps = ComponentProps<typeof Primitive.Value>;
+export type SelectResetProps = ComponentProps<"span">;
 export type SelectTriggerProps = ComponentProps<typeof Primitive.Trigger>;
 export type SelectContentProps = ComponentProps<typeof Primitive.Content>;
 export type SelectLabelProps = ComponentProps<typeof Primitive.Label>;
@@ -30,12 +31,28 @@ export function SelectValue(props: SelectValueProps) {
   return <Primitive.Value data-slot="select-value" {...props}/>;
 }
 
+export function SelectReset(props: SelectResetProps) {
+  const { className, ...rest } = props;
+  const classes = classMerge(
+    "absolute top-1/2 -left-[1px] -translate-y-1/2 " +
+    "flex items-center justify-center cursor-pointer " +
+    "size-10 z-10",
+    className,
+  );
+
+  return (
+    <span data-slot="select-reset" className={classes} {...rest}>
+      <X data-slot="select-reset-icon"/>
+    </span>
+  );
+}
+
 export function SelectTrigger(props: SelectTriggerProps) {
   const { className, children, ...rest } = props;
   const classes = classMerge(
-    "flex items-center justify-between gap-2 " +
+    "relative flex items-center justify-between gap-2 " +
     "bg-background text-select-foreground text-sm px-3 py-2 h-10 w-full " +
-    "border border-input rounded-md outline-none " +
+    "border border-input rounded-sm outline-none " +
     "whitespace-nowrap transition-[color,box-shadow] " +
     "dark:bg-input/30 dark:hover:bg-input/50 " +
     "disabled:cursor-not-allowed disabled:opacity-50 " +
@@ -43,7 +60,8 @@ export function SelectTrigger(props: SelectTriggerProps) {
     "*:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center " +
     "*:data-[slot=select-value]:gap-2 *:data-[slot=select-value]:line-clamp-1 " +
     "[&_svg:not([class*='text-'])]:text-select-foreground [&_svg:not([class*='size-'])]:size-4 " +
-    "[&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "[&_svg]:pointer-events-none [&_svg]:shrink-0 " +
+    "data-[empty=false]:pl-10",
     className,
   );
 
@@ -76,7 +94,7 @@ export function SelectContent(props: SelectContentProps) {
   const classesViewport = classMerge(
     "p-1",
     position === "popper" && "w-full scroll-my-1 " +
-    "min-w-[var(--radix-select-trigger-width)] h-[var(--radix-select-trigger-height)]"
+    "min-w-[var(--radix-select-trigger-width)] h-[var(--radix-select-trigger-height)]",
   );
 
 

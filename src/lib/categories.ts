@@ -18,7 +18,32 @@ export type Categories = {
   totalPages: number;
 };
 
-export async function getCategoriesAll(search?: string) {
+export type GetCategoriesProps = {
+  search?: string;
+  limit?: number;
+  page?: number;
+};
+
+export type GetCategoryAllProps = Pick<
+  GetCategoriesProps, "search"
+>;
+
+export async function getCategories(props: GetCategoriesProps = {}) {
+  const url = new URL(PATH, BASE);
+  const limitParsed = props.limit ? Math.abs(props.limit).toString() : null;
+  const pageParsed = props.page ? Math.abs(props.page).toString() : null;
+
+  if (props.search) url.searchParams.set("search", props.search);
+  if (limitParsed) url.searchParams.set("limit", limitParsed);
+  if (pageParsed) url.searchParams.set("page", pageParsed);
+
+  const link = url.toString();
+  const { data } = await axios.get<Categories>(link);
+
+  return data;
+}
+
+export async function getCategoriesAll({ search }: GetCategoryAllProps = {}) {
   const url = new URL(PATH, BASE);
   if (search) url.searchParams.set("search", search);
   url.searchParams.set("page", "1");
@@ -38,21 +63,6 @@ export async function getCategoriesAll(search?: string) {
     data.data = [...data.data, ...update.data];
     data.currentPage = current;
   }
-
-  return data;
-}
-
-export async function getCategories(search?: string, limit?: number, page?: number) {
-  const url = new URL(PATH, BASE);
-  const limitParsed = limit ? Math.abs(limit).toString() : null;
-  const pageParsed = page ? Math.abs(page).toString() : null;
-
-  if (search) url.searchParams.set("search", search);
-  if (limitParsed) url.searchParams.set("limit", limitParsed);
-  if (pageParsed) url.searchParams.set("page", pageParsed);
-
-  const link = url.toString();
-  const { data } = await axios.get<Categories>(link);
 
   return data;
 }

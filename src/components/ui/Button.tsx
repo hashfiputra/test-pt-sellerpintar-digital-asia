@@ -32,7 +32,7 @@ export const buttonVariants = cva(
         default: "h-10 px-4 py-2 has-[>svg]:px-3",
         sm: "h-9 px-3 has-[>svg]:px-2.5",
         lg: "h-11 px-8 has-[>svg]:px-6",
-        icon: "h-10",
+        icon: "w-10 h-10",
       },
       full: {
         true: "w-full",
@@ -47,7 +47,7 @@ export const buttonVariants = cva(
   },
 );
 
-export default function Button(props: ButtonProps) {
+export function Button(props: ButtonProps) {
   const { className, variant, size, full, asChild, ...rest } = props;
   const variants = buttonVariants({ variant, size, full, className });
   const Component = asChild ? Slot : "button";
