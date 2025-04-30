@@ -1,6 +1,5 @@
-import axios from "axios";
-import { jwtVerify, SignJWT } from "jose";
 import { z } from "zod";
+import { jwtVerify, SignJWT } from "jose";
 
 const SECRET_KEY = process.env.SESSION_SECRET;
 const ENCODED_KEY = new TextEncoder().encode(SECRET_KEY);
@@ -20,6 +19,12 @@ export type RegisterResponse = {
   "role": "User" | "Admin",
   "createdAt": string;
   "updatedAt": string;
+};
+
+export type EncryptPayload = {
+  token: LoginResponse["token"];
+  username: LoginSchema["username"];
+  role: LoginResponse["role"];
 };
 
 export const loginSchema = z.object({
@@ -43,44 +48,8 @@ export const registerSchema = z.object({
   }),
 });
 
-export async function login(payload: LoginSchema) {
-  const base = "https://test-fe.mysellerpintar.com";
-  const path = "/api/auth/login";
-
-  try {
-    const url = new URL(path, base).toString();
-    const {data} = await axios.post<LoginResponse>(url, payload);
-    const {token, role} = data;
-
-    return {success: true, token, role};
-  } catch (error) {
-    const basic = "Something went wrong, try again later";
-    const message = axios.isAxiosError(error) ? error.response?.data?.error || error.message || basic : basic;
-
-    return {success: false, message};
-  }
-}
-
-export async function register(payload: RegisterSchema) {
-  const base = "https://test-fe.mysellerpintar.com";
-  const path = "/api/auth/register";
-
-  try {
-    const url = new URL(path, base).toString();
-    await axios.post<RegisterResponse>(url, payload);
-    const message = "Registration successful, login to continue";
-
-    return {success: true, message};
-  } catch (error) {
-    const basic = "Something went wrong, try again later";
-    const message = axios.isAxiosError(error) ? error.response?.data?.error || error.message || basic : basic;
-
-    return {success: false, message};
-  }
-}
-
-export async function encrypt(token: LoginResponse["token"], role: LoginResponse["role"]) {
-  return await new SignJWT({token, role})
+export async function encrypt(payload: EncryptPayload) {
+  return await new SignJWT(payload)
     .setProtectedHeader({alg: "HS256"})
     .setIssuedAt()
     .setExpirationTime("7d")
@@ -89,7 +58,7 @@ export async function encrypt(token: LoginResponse["token"], role: LoginResponse
 
 export async function decrypt(jwt: string | undefined = "") {
   const options = {algorithms: ["HS256"]};
-  const {payload} = await jwtVerify(jwt, ENCODED_KEY, options);
+  const {payload} = await jwtVerify<EncryptPayload>(jwt, ENCODED_KEY, options);
 
   return payload;
 }

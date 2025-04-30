@@ -2,32 +2,32 @@
 
 import type { ComponentProps } from "react";
 
-import * as SelectPrimitive from "@radix-ui/react-select";
+import * as Primitive from "@radix-ui/react-select";
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 
 import { classMerge } from "@lib/utils";
 
-export type SelectProps = ComponentProps<typeof SelectPrimitive.Root>;
-export type SelectGroupProps = ComponentProps<typeof SelectPrimitive.Group>;
-export type SelectValueProps = ComponentProps<typeof SelectPrimitive.Value>;
-export type SelectTriggerProps = ComponentProps<typeof SelectPrimitive.Trigger>;
-export type SelectContentProps = ComponentProps<typeof SelectPrimitive.Content>;
-export type SelectLabelProps = ComponentProps<typeof SelectPrimitive.Label>;
-export type SelectItemProps = ComponentProps<typeof SelectPrimitive.Item>;
-export type SelectSeparatorProps = ComponentProps<typeof SelectPrimitive.Separator>;
-export type SelectScrollUpButtonProps = ComponentProps<typeof SelectPrimitive.ScrollUpButton>;
-export type SelectScrollDownButtonProps = ComponentProps<typeof SelectPrimitive.ScrollDownButton>;
+export type SelectProps = ComponentProps<typeof Primitive.Root>;
+export type SelectGroupProps = ComponentProps<typeof Primitive.Group>;
+export type SelectValueProps = ComponentProps<typeof Primitive.Value>;
+export type SelectTriggerProps = ComponentProps<typeof Primitive.Trigger>;
+export type SelectContentProps = ComponentProps<typeof Primitive.Content>;
+export type SelectLabelProps = ComponentProps<typeof Primitive.Label>;
+export type SelectItemProps = ComponentProps<typeof Primitive.Item>;
+export type SelectSeparatorProps = ComponentProps<typeof Primitive.Separator>;
+export type SelectScrollUpButtonProps = ComponentProps<typeof Primitive.ScrollUpButton>;
+export type SelectScrollDownButtonProps = ComponentProps<typeof Primitive.ScrollDownButton>;
 
 export function Select(props: SelectProps) {
-  return <SelectPrimitive.Root data-slot="select" {...props} />;
+  return <Primitive.Root data-slot="select" {...props}/>;
 }
 
 export function SelectGroup(props: SelectGroupProps) {
-  return <SelectPrimitive.Group data-slot="select-group" {...props} />;
+  return <Primitive.Group data-slot="select-group" {...props}/>;
 }
 
 export function SelectValue(props: SelectValueProps) {
-  return <SelectPrimitive.Value data-slot="select-value" {...props} />;
+  return <Primitive.Value data-slot="select-value" {...props}/>;
 }
 
 export function SelectTrigger(props: SelectTriggerProps) {
@@ -48,16 +48,12 @@ export function SelectTrigger(props: SelectTriggerProps) {
   );
 
   return (
-    <SelectPrimitive.Trigger
-      data-slot="select-trigger"
-      className={classes}
-      {...rest}
-    >
+    <Primitive.Trigger data-slot="select-trigger" className={classes} {...rest}>
       {children}
-      <SelectPrimitive.Icon asChild>
+      <Primitive.Icon asChild>
         <ChevronDownIcon className="size-4 opacity-50"/>
-      </SelectPrimitive.Icon>
-    </SelectPrimitive.Trigger>
+      </Primitive.Icon>
+    </Primitive.Trigger>
   );
 }
 
@@ -77,26 +73,23 @@ export function SelectContent(props: SelectContentProps) {
     className,
   );
 
+  const classesViewport = classMerge(
+    "p-1",
+    position === "popper" && "w-full scroll-my-1 " +
+    "min-w-[var(--radix-select-trigger-width)] h-[var(--radix-select-trigger-height)]"
+  );
+
+
   return (
-    <SelectPrimitive.Portal>
-      <SelectPrimitive.Content
-        data-slot="select-content"
-        className={classes}
-        position={position}
-        {...rest}
-      >
+    <Primitive.Portal>
+      <Primitive.Content data-slot="select-content" className={classes} position={position} {...rest}>
         <SelectScrollUpButton/>
-        <SelectPrimitive.Viewport
-          className={classMerge(
-            "p-1", position === "popper" && "h-[var(--radix-select-trigger-height)] w-full " +
-            "min-w-[var(--radix-select-trigger-width)] scroll-my-1",
-          )}
-        >
+        <Primitive.Viewport className={classesViewport}>
           {children}
-        </SelectPrimitive.Viewport>
+        </Primitive.Viewport>
         <SelectScrollDownButton/>
-      </SelectPrimitive.Content>
-    </SelectPrimitive.Portal>
+      </Primitive.Content>
+    </Primitive.Portal>
   );
 }
 
@@ -104,13 +97,7 @@ export function SelectLabel(props: SelectLabelProps) {
   const {className, ...rest} = props;
   const classes = classMerge("text-muted-foreground px-2 py-1.5 text-xs", className);
 
-  return (
-    <SelectPrimitive.Label
-      data-slot="select-label"
-      className={classes}
-      {...rest}
-    />
-  );
+  return <Primitive.Label data-slot="select-label" className={classes} {...rest}/>;
 }
 
 export function SelectItem(props: SelectItemProps) {
@@ -119,7 +106,6 @@ export function SelectItem(props: SelectItemProps) {
     "relative flex items-center gap-2 " +
     "cursor-default w-full rounded-sm " +
     "py-1.5 pr-8 pl-2 text-sm outline-hidden select-none " +
-    "focus:bg-accent focus:text-accent-foreground " +
     "[&_svg:not([class*='text-'])]:text-muted-foreground " +
     "data-[disabled]:pointer-events-none data-[disabled]:opacity-50 " +
     "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 " +
@@ -128,20 +114,16 @@ export function SelectItem(props: SelectItemProps) {
   );
 
   return (
-    <SelectPrimitive.Item
-      data-slot="select-item"
-      className={classes}
-      {...rest}
-    >
+    <Primitive.Item data-slot="select-item" className={classes} {...rest}>
       <span className="absolute right-2 flex size-3.5 items-center justify-center">
-        <SelectPrimitive.ItemIndicator>
+        <Primitive.ItemIndicator>
           <CheckIcon className="size-4"/>
-        </SelectPrimitive.ItemIndicator>
+        </Primitive.ItemIndicator>
       </span>
-      <SelectPrimitive.ItemText>
+      <Primitive.ItemText>
         {children}
-      </SelectPrimitive.ItemText>
-    </SelectPrimitive.Item>
+      </Primitive.ItemText>
+    </Primitive.Item>
   );
 }
 
@@ -149,13 +131,7 @@ export function SelectSeparator(props: SelectSeparatorProps) {
   const {className, ...rest} = props;
   const classes = classMerge("bg-border pointer-events-none -mx-1 my-1 h-px", className);
 
-  return (
-    <SelectPrimitive.Separator
-      data-slot="select-separator"
-      className={classes}
-      {...rest}
-    />
-  );
+  return <Primitive.Separator data-slot="select-separator" className={classes} {...rest}/>;
 }
 
 export function SelectScrollUpButton(props: SelectScrollUpButtonProps) {
@@ -163,13 +139,9 @@ export function SelectScrollUpButton(props: SelectScrollUpButtonProps) {
   const classes = classMerge("flex cursor-default items-center justify-center py-1", className);
 
   return (
-    <SelectPrimitive.ScrollUpButton
-      data-slot="select-scroll-up-button"
-      className={classes}
-      {...rest}
-    >
+    <Primitive.ScrollUpButton data-slot="select-scroll-up-button" className={classes} {...rest}>
       <ChevronUpIcon className="size-4"/>
-    </SelectPrimitive.ScrollUpButton>
+    </Primitive.ScrollUpButton>
   );
 }
 
@@ -178,12 +150,8 @@ export function SelectScrollDownButton(props: SelectScrollDownButtonProps) {
   const classes = classMerge("flex cursor-default items-center justify-center py-1", className);
 
   return (
-    <SelectPrimitive.ScrollDownButton
-      data-slot="select-scroll-down-button"
-      className={classes}
-      {...rest}
-    >
+    <Primitive.ScrollDownButton data-slot="select-scroll-down-button" className={classes} {...rest}>
       <ChevronDownIcon className="size-4"/>
-    </SelectPrimitive.ScrollDownButton>
+    </Primitive.ScrollDownButton>
   );
 }

@@ -19,14 +19,5 @@ export const Toaster = (props: ToasterProps) => {
     ...style,
   } as CSSProperties;
 
-  return (
-    <Sonner
-      theme={theme}
-      className={classes}
-      style={styles}
-      {...rest}
-    />
-  );
+  return <Sonner theme={theme} className={classes} style={styles} {...rest}/>;
 };
-
-export default Toaster;

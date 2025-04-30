@@ -1,10 +1,19 @@
-import { register } from "@lib/auth";
-import { getResponse } from "@lib/utils";
+import axios from "axios";
+import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   const payload = await request.json();
-  const {success, message} = await register(payload);
-  if (!success) return getResponse({success: false, message});
+  const base = "https://test-fe.mysellerpintar.com";
+  const path = "/api/auth/register";
 
-  return getResponse({success: true, message});
+  try {
+    const url = new URL(path, base).toString();
+    await axios.post(url, payload);
+
+    const message = "Registration successful, login to continue";
+    return NextResponse.json({success: true, message}, {status: 200});
+  } catch (e) {
+    const message = axios.isAxiosError(e) ? e.response?.data?.error : "Something went wrong, try again later";
+    return NextResponse.json({success: false, message}, {status: 400});
+  }
 }

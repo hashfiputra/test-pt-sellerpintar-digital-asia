@@ -7,7 +7,7 @@ export type InputProps =
 
 export default function Input(props: InputProps) {
   const {className, type, ...rest} = props;
-  const inputClasses = classMerge(
+  const classes = classMerge(
     "peer flex gap-2 h-10 w-full min-w-0 rounded-sm " +
     "border border-input bg-white px-3 py-2 text-sm " +
     "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] " +
@@ -18,12 +18,5 @@ export default function Input(props: InputProps) {
     className,
   );
 
-  return (
-    <input
-      type={type}
-      data-slot="input"
-      className={inputClasses}
-      {...rest}
-    />
-  );
+  return <input type={type} data-slot="input" className={classes} {...rest}/>;
 }

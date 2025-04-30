@@ -33,19 +33,27 @@ export default function Login() {
   const onSubmit = async (values: LoginSchema) => {
     setRequesting(true); // Start requesting from API
 
-    const {data} = await axios.post("/api/auth/login", values);
-    const {success, message} = data;
-    if (success) return router.replace("/");
+    try {
+      await axios.post("/api/auth/login", values);
 
-    toast.error(message);
-    setRequesting(false);
+      router.replace("/");
+      router.refresh();
+    } catch (e) {
+      const isAxiosError = axios.isAxiosError(e);
+      const message = isAxiosError ? e.response?.data?.message : "Something went wrong, try again later";
+
+      toast.error(message);
+      setRequesting(false);
+    }
   };
 
   return (
     <main className="login" id="skip">
       <Form {...form}>
         <form className="login__form" onSubmit={form.handleSubmit(onSubmit)}>
-          <Brand className="login__brand" theme="light"/>
+          <Link className="login__logo" href="/">
+            <Brand className="login__brand" theme="light"/>
+          </Link>
           <div className="login__fields">
             <FormField
               control={form.control}

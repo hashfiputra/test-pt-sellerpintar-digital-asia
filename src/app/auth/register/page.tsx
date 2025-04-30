@@ -32,23 +32,28 @@ export default function Register() {
   const onSubmit = async (values: RegisterSchema) => {
     setRequesting(true); // Start requesting from API
 
-    const {data} = await axios.post("/api/auth/register", values);
-    const {success, message} = data;
+    try {
+      const {data} = await axios.post("/api/auth/register", values);
+      const {message} = data;
 
-    if (!success) toast.error(message);
-    if (success) {
       form.reset();
       toast.success(message);
+    } catch (e) {
+      const isAxiosError = axios.isAxiosError(e);
+      const message = isAxiosError ? e.response?.data?.message : "Something went wrong, try again later";
+      toast.error(message);
     }
 
-    setRequesting(false);
+    setRequesting(false); // Finish requesting from API
   };
 
   return (
     <main className="register" id="skip">
       <Form {...form}>
         <form className="register__form" onSubmit={form.handleSubmit(onSubmit)}>
-          <Brand className="register__brand" theme="light"/>
+          <Link className="register__logo" href="/">
+            <Brand className="register__brand" theme="light"/>
+          </Link>
           <div className="register__fields">
             <FormField
               control={form.control}

@@ -24,8 +24,8 @@ export const buttonVariants = cva(
         default: "bg-primary text-primary-foreground",
         secondary: "bg-secondary text-secondary-foreground",
         destructive: "bg-destructive text-destructive-foreground focus-visible:ring-destructive/20",
-        outline: "bg-background border hover:opacity-100 hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
-        ghost: "hover:opacity-100 hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
+        outline: "bg-background border hover:opacity-100 hover:bg-accent dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
+        ghost: "hover:opacity-100 hover:bg-accent dark:hover:bg-accent/50",
         link: "hover:opacity-100",
       },
       size: {
@@ -51,12 +51,7 @@ export default function Button(props: ButtonProps) {
   const {className, variant, size, full, asChild, ...rest} = props;
   const variants = buttonVariants({variant, size, full, className});
   const Component = asChild ? Slot : "button";
+  const classes = classMerge(variants);
 
-  return (
-    <Component
-      data-slot="button"
-      className={classMerge(variants)}
-      {...rest}
-    />
-  );
+  return <Component data-slot="button" className={classes} {...rest}/>;
 }

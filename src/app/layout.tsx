@@ -5,11 +5,14 @@ import type { ReactNode } from "react";
 import type { Metadata } from "next";
 
 import Link from "next/link";
+import { cookies } from "next/headers";
 import { ThemeProvider } from "next-themes";
 
 import Comments from "@common/Comments";
+import { Toaster } from "@ui/Toast";
 
-import Toaster from "@ui/Toast";
+import SessionProvider from "@contexts/SessionContext";
+import { decrypt } from "@lib/auth";
 
 export const metadata: Metadata = {
   title: {
@@ -25,18 +28,22 @@ export const metadata: Metadata = {
   keywords: "design resources, design interviews, industry news, design inspiration, design professionals, design trends, creative insights, design community, design articles, design blog",
 };
 
-export default function HomeLayout({
+export default async function HomeLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
+  const store = await cookies();
+  const session = store.get("session")?.value;
+  const data = session ? await decrypt(session) : null;
+
   return (
     <html lang="en" className={fontVariables} suppressHydrationWarning>
     <body>
     <Comments/>
-    <Link className="visually-hidden" href="./#skip">
-      Skip to main content
-    </Link>
+    <Link className="sr-only" href="./#skip">Skip to main content</Link>
     <ThemeProvider defaultTheme="light">
-      {children}
+      <SessionProvider username={data?.username} role={data?.role}>
+        {children}
+      </SessionProvider>
       <Toaster richColors closeButton/>
     </ThemeProvider>
     </body>

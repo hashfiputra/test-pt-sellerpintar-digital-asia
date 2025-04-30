@@ -10,20 +10,24 @@
   --background: var(--color-white);
   --card: var(--color-white);
   --popover: var(--color-white);
+  --dropdown: var(--color-white);
+  --dropdown-destructive: var(--color-red-500);
   --primary: var(--color-blue-600);
   --secondary: var(--color-slate-200);
   --destructive: var(--color-red-600);
-  --muted: oklch(0.967 0.003 264.542);
+  --muted: var(--color-blue-200);
   --accent: var(--color-slate-100);
 
   --foreground: var(--color-slate-900);
   --card-foreground: var(--color-slate-900);
   --popover-foreground: var(--color-slate-900);
+  --dropdown-foreground: var(--color-slate-600);
+  --dropdown-destructive-foreground: var(--color-red-500);
   --primary-foreground: var(--color-slate-50);
   --secondary-foreground: var(--color-slate-900);
   --destructive-foreground: var(--color-slate-50);
   --muted-foreground: var(--color-slate-500);
-  --accent-foreground: var(--color-slate-900);
+  --accent-foreground: var(--color-blue-900);
   --select-foreground: var(--color-gray-900);
 
   --border: var(--color-slate-200);
@@ -50,6 +54,8 @@
   --background: oklch(0.13 0.028 261.692);
   --card: oklch(0.21 0.034 264.665);
   --popover: oklch(0.21 0.034 264.665);
+  --dropdown: oklch(0.21 0.034 264.665);
+  --dropdown-destructive: oklch(0.704 0.191 22.216);
   --primary: oklch(0.928 0.006 264.531);
   --secondary: oklch(0.278 0.033 256.848);
   --destructive: oklch(0.704 0.191 22.216);
@@ -59,6 +65,8 @@
   --foreground: oklch(0.985 0.002 247.839);
   --card-foreground: oklch(0.985 0.002 247.839);
   --popover-foreground: oklch(0.985 0.002 247.839);
+  --dropdown-foreground: oklch(0.985 0.002 247.839);
+  --dropdown-destructive-foreground: oklch(0.704 0.191 22.216);
   --primary-foreground: oklch(0.21 0.034 264.665);
   --secondary-foreground: oklch(0.985 0.002 247.839);
   --destructive-foreground: oklch(0.985 0.002 247.839);
@@ -130,6 +138,8 @@
   --color-background: var(--background);
   --color-card: var(--card);
   --color-popover: var(--popover);
+  --color-dropdown: var(--dropdown);
+  --color-dropdown-destructive: var(--dropdown-destructive);
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-destructive: var(--destructive);
@@ -139,6 +149,8 @@
   --color-foreground: var(--foreground);
   --color-card-foreground: var(--card-foreground);
   --color-popover-foreground: var(--popover-foreground);
+  --color-dropdown-foreground: var(--dropdown-foreground);
+  --color-dropdown-destructive-foreground: var(--dropdown-destructive-foreground);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-destructive-foreground: var(--destructive-foreground);
@@ -146,6 +158,7 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-select-foreground: var(--select-foreground);
 
+  --color-overlay: oklch(0.15 0.007 270.977 / 0.4);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -406,6 +419,8 @@
   --color-rose-700: #be123c;
   --color-rose-800: #9f1239;
   --color-rose-900: #881337;
+
+  --shadow-dropdown-menu: 0px, 4px, 6px, 0px, rgba(0, 0, 0, 0.09);
 }
 
 @layer base {
@@ -532,11 +547,34 @@
   }
 }
 
-@utility visually-hidden {
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  @apply absolute whitespace-nowrap overflow-hidden
-  h-0.25 w-0.25;
+@utility header {
+  @apply fixed top-0 w-full z-10
+  flex items-center justify-between
+  bg-transparent border-b border-transparent
+  transition-colors duration-250 ease-out
+  px-5 py-4;
+
+  &[data-scrolled=true] {
+    @apply bg-background border-border;
+  }
+
+  &[data-border=false] {
+    @apply border-none;
+  }
+
+  .header__img {
+    @apply h-5.5;
+  }
+
+  .header__login {
+    @apply flex
+    items-center justify-center
+    bg-muted rounded-full size-8;
+
+    .header__login-icon {
+      @apply text-accent-foreground size-4;
+    }
+  }
 }
 
 @plugin "tailwind-scrollbar";

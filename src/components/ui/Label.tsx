@@ -11,18 +11,12 @@ export type LabelProps =
 
 export default function Label(props: LabelProps) {
   const {className, ...rest} = props;
-  const labelClasses = classMerge(
+  const classes = classMerge(
     "flex items-center gap-2 text-sm font-medium select-none " +
     "group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-70 " +
     "peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
     className,
   );
 
-  return (
-    <Root
-      data-slot="label"
-      className={labelClasses}
-      {...rest}
-    />
-  );
+  return <Root data-slot="label" className={classes} {...rest}/>;
 }
