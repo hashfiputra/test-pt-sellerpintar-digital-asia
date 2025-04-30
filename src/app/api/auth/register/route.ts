@@ -11,9 +11,9 @@ export async function POST(request: Request) {
     await axios.post(url, payload);
 
     const message = "Registration successful, login to continue";
-    return NextResponse.json({success: true, message}, {status: 200});
+    return NextResponse.json({ success: true, message }, { status: 200 });
   } catch (e) {
     const message = axios.isAxiosError(e) ? e.response?.data?.error : "Something went wrong, try again later";
-    return NextResponse.json({success: false, message}, {status: 400});
+    return NextResponse.json({ success: false, message }, { status: 400 });
   }
 }

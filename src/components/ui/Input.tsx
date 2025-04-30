@@ -6,7 +6,7 @@ export type InputProps =
   ComponentProps<"input">;
 
 export default function Input(props: InputProps) {
-  const {className, type, ...rest} = props;
+  const { className, type, ...rest } = props;
   const classes = classMerge(
     "peer flex gap-2 h-10 w-full min-w-0 rounded-sm " +
     "border border-input bg-white px-3 py-2 text-sm " +

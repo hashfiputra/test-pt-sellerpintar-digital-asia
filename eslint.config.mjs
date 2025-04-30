@@ -15,6 +15,7 @@ const eslintConfig = [
     rules: {
       quotes: ["warn", "double", { avoidEscape: true }],
       "no-console": ["warn", { allow: ["warn", "error"] }],
+      "object-curly-spacing": ["error", "always"],
       semi: ["error", "always"],
     }
   }

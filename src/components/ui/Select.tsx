@@ -31,7 +31,7 @@ export function SelectValue(props: SelectValueProps) {
 }
 
 export function SelectTrigger(props: SelectTriggerProps) {
-  const {className, children, ...rest} = props;
+  const { className, children, ...rest } = props;
   const classes = classMerge(
     "flex items-center justify-between gap-2 " +
     "bg-transparent text-select-foreground text-sm px-3 py-2 h-10 w-full " +
@@ -58,7 +58,7 @@ export function SelectTrigger(props: SelectTriggerProps) {
 }
 
 export function SelectContent(props: SelectContentProps) {
-  const {className, children, position = "popper", ...rest} = props;
+  const { className, children, position = "popper", ...rest } = props;
   const classes = classMerge(
     "relative bg-popover text-popover-foreground " +
     "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 " +
@@ -94,14 +94,14 @@ export function SelectContent(props: SelectContentProps) {
 }
 
 export function SelectLabel(props: SelectLabelProps) {
-  const {className, ...rest} = props;
+  const { className, ...rest } = props;
   const classes = classMerge("text-muted-foreground px-2 py-1.5 text-xs", className);
 
   return <Primitive.Label data-slot="select-label" className={classes} {...rest}/>;
 }
 
 export function SelectItem(props: SelectItemProps) {
-  const {className, children, ...rest} = props;
+  const { className, children, ...rest } = props;
   const classes = classMerge(
     "relative flex items-center gap-2 " +
     "cursor-default w-full rounded-sm " +
@@ -128,14 +128,14 @@ export function SelectItem(props: SelectItemProps) {
 }
 
 export function SelectSeparator(props: SelectSeparatorProps) {
-  const {className, ...rest} = props;
+  const { className, ...rest } = props;
   const classes = classMerge("bg-border pointer-events-none -mx-1 my-1 h-px", className);
 
   return <Primitive.Separator data-slot="select-separator" className={classes} {...rest}/>;
 }
 
 export function SelectScrollUpButton(props: SelectScrollUpButtonProps) {
-  const {className, ...rest} = props;
+  const { className, ...rest } = props;
   const classes = classMerge("flex cursor-default items-center justify-center py-1", className);
 
   return (
@@ -146,7 +146,7 @@ export function SelectScrollUpButton(props: SelectScrollUpButtonProps) {
 }
 
 export function SelectScrollDownButton(props: SelectScrollDownButtonProps) {
-  const {className, ...rest} = props;
+  const { className, ...rest } = props;
   const classes = classMerge("flex cursor-default items-center justify-center py-1", className);
 
   return (

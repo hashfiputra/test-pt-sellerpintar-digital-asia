@@ -30,10 +30,10 @@ export type HeaderProps = {
   border?: boolean;
 };
 
-export default function Header({fixed, border = true}: HeaderProps) {
+export default function Header({ fixed, border = true }: HeaderProps) {
   const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
-  const {authenticated, username, role} = useSession() || {};
+  const { authenticated, username, role } = useSession() || {};
   const initial = useMemo(() => username?.charAt(0).toUpperCase(), [username]);
 
   useEffect(() => {
@@ -44,8 +44,8 @@ export default function Header({fixed, border = true}: HeaderProps) {
   }, [fixed]);
 
   const onLogOut = useCallback(async () => {
-    const {data, status} = await axios.get("/api/auth/logout");
-    const {success, message = "Something went wrong, try again later"} = data;
+    const { data, status } = await axios.get("/api/auth/logout");
+    const { success, message = "Something went wrong, try again later" } = data;
     if (!success || status !== 200) return toast.error(message);
 
     // Refresh current page to remove session cookie

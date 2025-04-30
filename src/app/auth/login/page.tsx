@@ -51,14 +51,14 @@ export default function Login() {
     <main className="login" id="skip">
       <Form {...form}>
         <form className="login__form" onSubmit={form.handleSubmit(onSubmit)}>
-          <Link className="login__logo" href="/">
-            <Brand className="login__brand" theme="light"/>
+          <Link className="login__brand" href="/">
+            <Brand className="login__img" theme="light"/>
           </Link>
           <div className="login__fields">
             <FormField
               control={form.control}
               name="username"
-              render={({field}) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
@@ -71,7 +71,7 @@ export default function Login() {
             <FormField
               control={form.control}
               name="password"
-              render={({field}) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>

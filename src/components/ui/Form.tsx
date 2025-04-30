@@ -34,11 +34,11 @@ export const useFormField = () => {
   const fieldContext = useContext(FormFieldContext);
   if (!fieldContext) throw new Error("useFormField should be used within <FormField>");
 
-  const {getFieldState} = useFormContext();
+  const { getFieldState } = useFormContext();
   const itemContext = useContext(FormItemContext);
-  const {id} = itemContext;
+  const { id } = itemContext;
 
-  const formState = useFormState({name: fieldContext.name});
+  const formState = useFormState({ name: fieldContext.name });
   const fieldState = getFieldState(fieldContext.name, formState);
 
   return {
@@ -55,18 +55,18 @@ export const Form = FormProvider;
 
 export function FormItem(props: FormItemProps) {
   const id = useId();
-  const {className, ...rest} = props;
+  const { className, ...rest } = props;
   const classes = classMerge("grid gap-1", className);
 
   return (
-    <FormItemContext.Provider value={{id}}>
+    <FormItemContext.Provider value={{ id }}>
       <div data-slot="form-item" className={classes} {...rest}/>
     </FormItemContext.Provider>
   );
 }
 
 export function FormLabel(props: FormLabelProps) {
-  const {error, formItemId} = useFormField();
+  const { error, formItemId } = useFormField();
 
   return (
     <Label
@@ -79,7 +79,7 @@ export function FormLabel(props: FormLabelProps) {
 }
 
 export function FormControl(props: FormControlProps) {
-  const {error, formItemId, formDescriptionId, formMessageId} = useFormField();
+  const { error, formItemId, formDescriptionId, formMessageId } = useFormField();
   const describedby = !error ? `${formDescriptionId}` : `${formDescriptionId} ${formMessageId}`;
   const invalid = !!error;
 
@@ -95,8 +95,8 @@ export function FormControl(props: FormControlProps) {
 }
 
 export function FormDescription(props: FormDescriptionProps) {
-  const {className, ...rest} = props;
-  const {formDescriptionId} = useFormField();
+  const { className, ...rest } = props;
+  const { formDescriptionId } = useFormField();
   const classes = classMerge("text-destructive text-sm", className);
 
   return (
@@ -110,11 +110,11 @@ export function FormDescription(props: FormDescriptionProps) {
 }
 
 export function FormMessage(props: FormMessageProps) {
-  const {error, formMessageId} = useFormField();
+  const { error, formMessageId } = useFormField();
   const body = error ? String(error?.message ?? "") : props.children;
   if (!body) return null;
 
-  const {className, ...rest} = props;
+  const { className, ...rest } = props;
   const classes = classMerge("text-destructive text-sm", className);
 
   return (
@@ -134,7 +134,7 @@ export const FormField = <
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >(props: FormFieldProps<TFieldValues, TName>) => {
   return (
-    <FormFieldContext.Provider value={{name: props.name}}>
+    <FormFieldContext.Provider value={{ name: props.name }}>
       <Controller {...props} />
     </FormFieldContext.Provider>
   );

@@ -48,8 +48,8 @@ export const buttonVariants = cva(
 );
 
 export default function Button(props: ButtonProps) {
-  const {className, variant, size, full, asChild, ...rest} = props;
-  const variants = buttonVariants({variant, size, full, className});
+  const { className, variant, size, full, asChild, ...rest } = props;
+  const variants = buttonVariants({ variant, size, full, className });
   const Component = asChild ? Slot : "button";
   const classes = classMerge(variants);
 

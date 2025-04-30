@@ -35,7 +35,7 @@ export function DialogClose(props: DialogCloseProps) {
 }
 
 export function DialogOverlay(props: DialogOverlayProps) {
-  const {className, ...rest} = props;
+  const { className, ...rest } = props;
   const classes = classMerge(
     "fixed inset-0 bg-overlay z-50 " +
     "data-[state=open]:animate-in data-[state=open]:fade-in-0 " +
@@ -47,7 +47,7 @@ export function DialogOverlay(props: DialogOverlayProps) {
 }
 
 export function DialogContent(props: DialogContentProps) {
-  const {className, children, noClose, ...rest} = props;
+  const { className, children, noClose, ...rest } = props;
   const classes = classMerge(
     "fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] " +
     "grid gap-4 p-6 bg-background w-full max-w-[calc(100%-2rem)] " +
@@ -82,28 +82,28 @@ export function DialogContent(props: DialogContentProps) {
 }
 
 export function DialogHeader(props: DialogHeaderProps) {
-  const {className, ...rest} = props;
+  const { className, ...rest } = props;
   const classes = classMerge("flex flex-col gap-2 text-center sm:text-left", className);
 
   return <div data-slot="dialog-header" className={classes} {...rest}/>;
 }
 
 export function DialogFooter(props: DialogFooterProps) {
-  const {className, ...rest} = props;
+  const { className, ...rest } = props;
   const classes = classMerge("flex flex-col-reverse gap-2 sm:flex-row sm:justify-end", className);
 
   return <div data-slot="dialog-footer" className={classes} {...rest}/>;
 }
 
 export function DialogTitle(props: DialogTitleProps) {
-  const {className, ...rest} = props;
+  const { className, ...rest } = props;
   const classes = classMerge("text-lg font-semibold", className);
 
   return <Primitive.Title data-slot="dialog-title" className={classes} {...rest}/>;
 }
 
 export function DialogDescription(props: DialogDescriptionProps) {
-  const {className, ...rest} = props;
+  const { className, ...rest } = props;
   const classes = classMerge("text-muted-foreground text-sm", className);
 
   return <Primitive.Description data-slot="dialog-description" className={classes} {...rest}/>;

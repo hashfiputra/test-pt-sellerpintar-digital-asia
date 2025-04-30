@@ -4,7 +4,7 @@ export interface BrandProps extends SVGProps<SVGSVGElement> {
   theme: "light" | "dark";
 }
 
-export const Brand = ({theme, ...props}: BrandProps) => (
+export const Brand = ({ theme, ...props }: BrandProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 135 24"

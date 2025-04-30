@@ -44,21 +44,21 @@ export const registerSchema = z.object({
     .max(100, "Password cannot exceed 100 characters")
     .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]/, "Password must contain A-Z, a-z, and 0-9\n"),
   role: z.enum(["User", "Admin"], {
-    errorMap: () => ({message: "Please select a valid role"}),
+    errorMap: () => ({ message: "Please select a valid role" }),
   }),
 });
 
 export async function encrypt(payload: EncryptPayload) {
   return await new SignJWT(payload)
-    .setProtectedHeader({alg: "HS256"})
+    .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime("7d")
     .sign(ENCODED_KEY);
 }
 
 export async function decrypt(jwt: string | undefined = "") {
-  const options = {algorithms: ["HS256"]};
-  const {payload} = await jwtVerify<EncryptPayload>(jwt, ENCODED_KEY, options);
+  const options = { algorithms: ["HS256"] };
+  const { payload } = await jwtVerify<EncryptPayload>(jwt, ENCODED_KEY, options);
 
   return payload;
 }

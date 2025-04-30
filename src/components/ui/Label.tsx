@@ -10,7 +10,7 @@ export type LabelProps =
   ComponentProps<typeof Root>;
 
 export default function Label(props: LabelProps) {
-  const {className, ...rest} = props;
+  const { className, ...rest } = props;
   const classes = classMerge(
     "flex items-center gap-2 text-sm font-medium select-none " +
     "group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-70 " +

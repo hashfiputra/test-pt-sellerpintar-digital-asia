@@ -19,7 +19,7 @@ export async function middleware(request: NextRequest) {
   const isAuth = isLogin || isRegister;
 
   try {
-    const {token, role} = await decrypt(session);
+    const { token, role } = await decrypt(session);
     const isAdmin = role === "Admin";
     const isLoggedIn = !!token;
 

@@ -17,6 +17,7 @@
   --destructive: var(--color-red-600);
   --muted: var(--color-blue-200);
   --accent: var(--color-slate-100);
+  --footer: --alpha(var(--color-blue-600) / 86%);
 
   --foreground: var(--color-slate-900);
   --card-foreground: var(--color-slate-900);
@@ -29,6 +30,7 @@
   --muted-foreground: var(--color-slate-500);
   --accent-foreground: var(--color-blue-900);
   --select-foreground: var(--color-gray-900);
+  --footer-foreground: var(--color-white);
 
   --border: var(--color-slate-200);
   --input: var(--color-slate-200);
@@ -61,6 +63,7 @@
   --destructive: oklch(0.704 0.191 22.216);
   --muted: oklch(0.278 0.033 256.848);
   --accent: oklch(0.278 0.033 256.848);
+  --footer: oklch(0.928 0.006 264.531);
 
   --foreground: oklch(0.985 0.002 247.839);
   --card-foreground: oklch(0.985 0.002 247.839);
@@ -73,6 +76,7 @@
   --muted-foreground: oklch(0.707 0.022 261.325);
   --accent-foreground: oklch(0.985 0.002 247.839);
   --select-foreground: oklch(0.985 0.002 247.839);
+  --footer-foreground: oklch(0.21 0.034 264.665);
 
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
@@ -145,6 +149,7 @@
   --color-destructive: var(--destructive);
   --color-muted: var(--muted);
   --color-accent: var(--accent);
+  --color-footer: var(--footer);
 
   --color-foreground: var(--foreground);
   --color-card-foreground: var(--card-foreground);
@@ -157,6 +162,7 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent-foreground: var(--accent-foreground);
   --color-select-foreground: var(--select-foreground);
+  --color-footer-foreground: var(--footer-foreground);
 
   --color-overlay: oklch(0.15 0.007 270.977 / 0.4);
   --color-border: var(--border);
@@ -469,7 +475,7 @@
     px-2.5 py-6 w-full max-w-100;
   }
 
-  .login__brand {
+  .login__img {
     @apply h-6;
   }
 
@@ -514,7 +520,7 @@
     px-2.5 py-6 w-full max-w-100;
   }
 
-  .register__brand {
+  .register__img {
     @apply h-6;
   }
 
@@ -574,6 +580,26 @@
     .header__login-icon {
       @apply text-accent-foreground size-4;
     }
+  }
+}
+
+@utility footer {
+  @apply flex flex-col
+  items-center justify-center
+  bg-footer text-footer-foreground
+  w-full h-25 px-12;
+
+  .footer__content {
+    @apply flex flex-col
+    items-center justify-center gap-2;
+  }
+
+  .footer__img {
+    @apply h-5.5;
+  }
+
+  .footer__copyright {
+    @apply text-sm;
   }
 }
 

@@ -11,12 +11,12 @@ export async function POST(request: Request) {
 
   try {
     const url = new URL(path, base).toString();
-    const {data} = await axios.post(url, payload);
-    const {username} = payload;
-    const {token, role} = data;
+    const { data } = await axios.post(url, payload);
+    const { username } = payload;
+    const { token, role } = data;
 
     const expires = Date.now() + 7 * 24 * 60 * 60 * 1000;
-    const session = await encrypt({token, username, role});
+    const session = await encrypt({ token, username, role });
     const store = await cookies();
 
     store.set("session", session, {
@@ -28,9 +28,9 @@ export async function POST(request: Request) {
     });
 
     const message = "Login successful, redirecting to homepage...";
-    return NextResponse.json({success: true, message}, {status: 200});
+    return NextResponse.json({ success: true, message }, { status: 200 });
   } catch (e) {
     const message = axios.isAxiosError(e) ? e.response?.data?.error : "Something went wrong, try again later";
-    return NextResponse.json({success: false, message}, {status: 400});
+    return NextResponse.json({ success: false, message }, { status: 400 });
   }
 }

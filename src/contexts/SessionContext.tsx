@@ -16,11 +16,11 @@ export type SessionProviderType = PropsWithChildren<{
 
 export const SessionContext = createContext<
   SessionContextType
->({authenticated: false});
+>({ authenticated: false });
 
 export const SessionProvider = (props: SessionProviderType) => {
-  const {children, username, role} = props;
-  const value = username && role ? {authenticated: true, username, role} : {authenticated: false};
+  const { children, username, role } = props;
+  const value = username && role ? { authenticated: true, username, role } : { authenticated: false };
 
   return (
     <SessionContext.Provider value={value}>

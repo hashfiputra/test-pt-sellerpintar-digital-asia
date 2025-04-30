@@ -41,7 +41,7 @@ export function DropdownTrigger(props: DropdownTriggerProps) {
 }
 
 export function DropdownContent(props: DropdownContentProps) {
-  const {className, sideOffset = 4, ...rest} = props;
+  const { className, sideOffset = 4, ...rest } = props;
   const classes = classMerge(
     "bg-dropdown text-dropdown-foreground " +
     "overflow-x-hidden overflow-y-auto rounded-sm border shadow-dropdown-menu min-w-46 z-50 " +
@@ -71,7 +71,7 @@ export function DropdownGroup(props: DropdownGroupProps) {
 }
 
 export function DropdownItem(props: DropdownItemProps) {
-  const {className, inset, variant = "default", ...rest} = props;
+  const { className, inset, variant = "default", ...rest } = props;
   const classes = classMerge(
     "relative flex items-center gap-2 px-3.25 py-2.75 " +
     "text-sm outline-hidden select-none cursor-default " +
@@ -99,7 +99,7 @@ export function DropdownItem(props: DropdownItemProps) {
 }
 
 export function DropdownCheckboxItem(props: DropdownCheckboxItemProps) {
-  const {className, children, checked, ...rest} = props;
+  const { className, children, checked, ...rest } = props;
   const classes = classMerge(
     "relative flex items-center gap-2 py-1.5 pr-2 pl-8 " +
     "rounded-sm text-sm outline-hidden select-none cursor-default " +
@@ -131,7 +131,7 @@ export function DropdownRadioGroup(props: DropdownRadioGroupProps) {
 }
 
 export function DropdownRadioItem(props: DropdownRadioItemProps) {
-  const {className, children, ...rest} = props;
+  const { className, children, ...rest } = props;
   const classes = classMerge(
     "relative flex items-center gap-2 py-1.5 pr-2 pl-8 " +
     "text-sm rounded-sm outline-hidden select-none cursor-default " +
@@ -154,7 +154,7 @@ export function DropdownRadioItem(props: DropdownRadioItemProps) {
 }
 
 export function DropdownLabel(props: DropdownLabelProps) {
-  const {className, inset, ...rest} = props;
+  const { className, inset, ...rest } = props;
   const classes = classMerge("px-2 py-1.5 text-sm font-medium data-[inset]:pl-8", className);
 
   return (
@@ -168,14 +168,14 @@ export function DropdownLabel(props: DropdownLabelProps) {
 }
 
 export function DropdownSeparator(props: DropdownSeparatorProps) {
-  const {className, ...rest} = props;
+  const { className, ...rest } = props;
   const classes = classMerge("bg-border -mx-1 my-1 h-px", className);
 
   return <Primitive.Separator data-slot="dropdown-menu-separator" className={classes} {...rest}/>;
 }
 
 export function DropdownShortcut(props: DropdownShortcutProps) {
-  const {className, ...rest} = props;
+  const { className, ...rest } = props;
   const classes = classMerge("text-muted-foreground ml-auto text-xs tracking-widest", className);
 
   return <span data-slot="dropdown-menu-shortcut" className={classes} {...rest}/>;
@@ -186,7 +186,7 @@ export function DropdownSub(props: DropdownSubProps) {
 }
 
 export function DropdownSubTrigger(props: DropdownSubTriggerProps) {
-  const {className, inset, children, ...rest} = props;
+  const { className, inset, children, ...rest } = props;
   const classes = classMerge(
     "flex items-center px-2 py-1.5 rounded-sm text-sm outline-hidden select-none cursor-default " +
     "data-[state=open]:bg-accent data-[state=open]:text-accent-foreground data-[inset]:pl-8 " +
@@ -208,7 +208,7 @@ export function DropdownSubTrigger(props: DropdownSubTriggerProps) {
 }
 
 export function DropdownSubContent(props: DropdownSubContentProps) {
-  const {className, ...rest} = props;
+  const { className, ...rest } = props;
   const classes = classMerge(
     "bg-dropdown text-dropdown-foreground " +
     "overflow-hidden rounded-sm border shadow-lg min-w-46 z-50 " +

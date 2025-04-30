@@ -33,8 +33,8 @@ export default function Register() {
     setRequesting(true); // Start requesting from API
 
     try {
-      const {data} = await axios.post("/api/auth/register", values);
-      const {message} = data;
+      const { data } = await axios.post("/api/auth/register", values);
+      const { message } = data;
 
       form.reset();
       toast.success(message);
@@ -51,14 +51,14 @@ export default function Register() {
     <main className="register" id="skip">
       <Form {...form}>
         <form className="register__form" onSubmit={form.handleSubmit(onSubmit)}>
-          <Link className="register__logo" href="/">
-            <Brand className="register__brand" theme="light"/>
+          <Link className="register__brand" href="/">
+            <Brand className="register__img" theme="light"/>
           </Link>
           <div className="register__fields">
             <FormField
               control={form.control}
               name="username"
-              render={({field}) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
@@ -71,7 +71,7 @@ export default function Register() {
             <FormField
               control={form.control}
               name="password"
-              render={({field}) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
@@ -88,7 +88,7 @@ export default function Register() {
             <FormField
               control={form.control}
               name="role"
-              render={({field}) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>Role</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>

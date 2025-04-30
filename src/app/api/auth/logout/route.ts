@@ -6,9 +6,9 @@ export async function GET() {
     const store = await cookies();
     store.delete("session");
 
-    return NextResponse.json({success: true});
+    return NextResponse.json({ success: true });
   } catch {
     const message = "Something went wrong, try again later";
-    return NextResponse.json({success: false, message}, {status: 400});
+    return NextResponse.json({ success: false, message }, { status: 400 });
   }
 }
