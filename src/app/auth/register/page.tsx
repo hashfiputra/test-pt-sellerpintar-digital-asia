@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 import axios from "axios";
@@ -15,10 +16,11 @@ import { Button } from "@ui/Button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@ui/Form";
 import { Select, SelectValue, SelectTrigger, SelectContent, SelectItem } from "@ui/Select";
 
-import type { RegisterSchema } from "@lib/auth";
-import { registerSchema } from "@lib/auth";
+import type { RegisterSchema } from "@schemas/auth";
+import { registerSchema } from "@schemas/auth";
 
 export default function Register() {
+  const router = useRouter();
   const [visible, setVisible] = useState(false);
   const [requesting, setRequesting] = useState(false);
   const form = useForm<RegisterSchema>({
@@ -29,23 +31,22 @@ export default function Register() {
     },
   });
 
-  const onSubmit = async (values: RegisterSchema) => {
+  const onSubmit = useCallback(async (values: RegisterSchema) => {
     setRequesting(true); // Start requesting from API
 
     try {
-      const { data } = await axios.post("/api/auth/register", values);
-      const { message } = data;
+      await axios.post("/api/auth/register", values);
 
-      form.reset();
-      toast.success(message);
+      router.replace("/");
+      router.refresh();
     } catch (e) {
       const isAxiosError = axios.isAxiosError(e);
       const message = isAxiosError ? e.response?.data?.message : "Something went wrong, try again later";
-      toast.error(message);
-    }
 
-    setRequesting(false); // Finish requesting from API
-  };
+      toast.error(message);
+      setRequesting(false);
+    }
+  }, [router]);
 
   return (
     <main className="register" id="skip">

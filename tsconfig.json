@@ -28,6 +28,7 @@
       "@contexts/*": ["./src/contexts/*"],
       "@utils/*": ["./src/utils/*"],
       "@lib/*": ["./src/lib/*"],
+      "@schemas/*": ["./src/schemas/*"],
       "@styles/*": ["./styles/*"],
       "@public/*": ["./public/*"]
     }

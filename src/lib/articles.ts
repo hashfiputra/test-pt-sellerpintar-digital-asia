@@ -18,7 +18,7 @@ export type Article = {
   createdAt: string;
   updatedAt: string;
   category: Category;
-  user: User;
+  user: Pick<User, "id" | "username">;
 };
 
 export type Articles = {
@@ -28,7 +28,7 @@ export type Articles = {
   limit: number;
 };
 
-export type GetArticlesProps = {
+export type GetArticlesPayload = {
   articleId?: string;
   userId?: string;
   title?: string;
@@ -41,19 +41,19 @@ export type GetArticlesProps = {
   page?: number;
 };
 
-export async function getArticles(props: GetArticlesProps = {}) {
+export async function getArticles(payload: GetArticlesPayload = {}) {
   const url = new URL(PATH, BASE);
-  const pageParsed = props.page ? Math.abs(props.page).toString() : null;
-  const limitParsed = props.limit ? Math.abs(props.limit).toString() : null;
+  const pageParsed = payload.page ? Math.abs(payload.page).toString() : null;
+  const limitParsed = payload.limit ? Math.abs(payload.limit).toString() : null;
 
-  if (props.articleId) url.searchParams.set("articleId", props.articleId);
-  if (props.userId) url.searchParams.set("userId", props.userId);
-  if (props.title) url.searchParams.set("title", props.title);
-  if (props.category) url.searchParams.set("category", props.category);
-  if (props.createdAtStart) url.searchParams.set("createdAtStart", props.createdAtStart);
-  if (props.updatedAtEnd) url.searchParams.set("updatedAtEnd", props.updatedAtEnd);
-  if (props.sortOrder) url.searchParams.set("sortOrder", props.sortOrder);
-  if (props.sortBy) url.searchParams.set("sortBy", props.sortBy);
+  if (payload.articleId) url.searchParams.set("articleId", payload.articleId);
+  if (payload.userId) url.searchParams.set("userId", payload.userId);
+  if (payload.title) url.searchParams.set("title", payload.title);
+  if (payload.category) url.searchParams.set("category", payload.category);
+  if (payload.createdAtStart) url.searchParams.set("createdAtStart", payload.createdAtStart);
+  if (payload.updatedAtEnd) url.searchParams.set("updatedAtEnd", payload.updatedAtEnd);
+  if (payload.sortOrder) url.searchParams.set("sortOrder", payload.sortOrder);
+  if (payload.sortBy) url.searchParams.set("sortBy", payload.sortBy);
 
   if (limitParsed) url.searchParams.set("limit", limitParsed);
   if (pageParsed) url.searchParams.set("page", pageParsed);

@@ -1,12 +1,12 @@
-import axios from "axios";
+import { isAxiosError } from "axios";
 import { NextResponse } from "next/server";
 
 import { toNumber } from "@lib/utils";
-import { getArticles, type GetArticlesProps } from "@lib/articles";
+import { getArticles, type GetArticlesPayload } from "@lib/articles";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const payload: GetArticlesProps = {
+  const payload: GetArticlesPayload = {
     articleId: searchParams.get("articleId") || undefined,
     userId: searchParams.get("userId") || undefined,
     title: searchParams.get("title") || undefined,
@@ -23,7 +23,7 @@ export async function GET(request: Request) {
     const data = await getArticles(payload);
     return NextResponse.json({ success: true, ...data }, { status: 200 });
   } catch (e) {
-    const message = axios.isAxiosError(e) ? e.response?.data?.error : "Something went wrong, try again later";
+    const message = isAxiosError(e) ? e.response?.data?.error : "Something went wrong, try again later";
     return NextResponse.json({ success: false, message }, { status: 400 });
   }
 }

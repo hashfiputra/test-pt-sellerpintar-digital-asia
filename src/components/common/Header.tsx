@@ -55,7 +55,7 @@ export default function Header({ fixed, border = true }: HeaderProps) {
     const { success, message = "Something went wrong, try again later" } = data;
     if (!success || status !== 200) return toast.error(message);
 
-    // Refresh current page to remove session cookie
+    router.replace("/auth/login");
     router.refresh();
   }, [router]);
 
@@ -75,8 +75,8 @@ export default function Header({ fixed, border = true }: HeaderProps) {
               </DropdownTrigger>
             </Avatar>
             <DropdownContent>
-              <DropdownItem>
-                My Account
+              <DropdownItem asChild>
+                <Link href="/auth/profile">My Account</Link>
               </DropdownItem>
               {role === "Admin" && (
                 <DropdownItem>

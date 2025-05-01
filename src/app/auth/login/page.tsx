@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -15,8 +15,8 @@ import Input from "@ui/Input";
 import { Button } from "@ui/Button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@ui/Form";
 
-import type { LoginSchema } from "@lib/auth";
-import { loginSchema } from "@lib/auth";
+import type { LoginSchema } from "@schemas/auth";
+import { loginSchema } from "@schemas/auth";
 
 export default function Login() {
   const router = useRouter();
@@ -30,7 +30,7 @@ export default function Login() {
     },
   });
 
-  const onSubmit = async (values: LoginSchema) => {
+  const onSubmit = useCallback(async (values: LoginSchema) => {
     setRequesting(true); // Start requesting from API
 
     try {
@@ -45,7 +45,7 @@ export default function Login() {
       toast.error(message);
       setRequesting(false);
     }
-  };
+  }, [router]);
 
   return (
     <main className="login" id="skip">

@@ -1,5 +1,9 @@
-import { z } from "zod";
+import { cookies } from "next/headers";
 import { jwtVerify, SignJWT } from "jose";
+import axios from "axios";
+
+const BASE = "https://test-fe.mysellerpintar.com";
+const PATH = "/api/auth";
 
 const SECRET_KEY = process.env.SESSION_SECRET;
 const ENCODED_KEY = new TextEncoder().encode(SECRET_KEY);
@@ -8,6 +12,8 @@ export type User = {
   id: string;
   username: string;
   role: "User" | "Admin";
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type UserEncrypt = {
@@ -16,29 +22,14 @@ export type UserEncrypt = {
   role: User["role"];
 };
 
-export type LoginSchema = z.infer<typeof loginSchema>;
-export type RegisterSchema = z.infer<typeof registerSchema>;
+export type LoginPayload = {
+  username: User["username"];
+  password: string;
+};
 
-export const loginSchema = z.object({
-  username: z.string().nonempty("Please enter your username"),
-  password: z.string().nonempty("Please enter your password"),
-});
-
-export const registerSchema = z.object({
-  username: z.string()
-    .nonempty("Username field cannot be empty")
-    .min(3, "Username must be at least 3 characters")
-    .max(50, "Username cannot exceed 50 characters")
-    .regex(/^[a-zA-Z0-9_-]+$/, "Username can only contain letters, numbers, underscores and hyphens"),
-  password: z.string()
-    .nonempty("Password field cannot be empty")
-    .min(8, "Password must be at least 8 characters long")
-    .max(100, "Password cannot exceed 100 characters")
-    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]/, "Password must contain A-Z, a-z, and 0-9\n"),
-  role: z.enum(["User", "Admin"], {
-    errorMap: () => ({ message: "Please select a valid role" }),
-  }),
-});
+export type RegisterPayload = LoginPayload & {
+  role: User["role"];
+};
 
 export async function encrypt(payload: UserEncrypt) {
   return await new SignJWT(payload)
@@ -53,4 +44,61 @@ export async function decrypt(jwt: string | undefined = "") {
   const { payload } = await jwtVerify<UserEncrypt>(jwt, ENCODED_KEY, options);
 
   return payload;
+}
+
+export async function authLogin(payload: LoginPayload) {
+  const url = new URL(PATH + "/login", BASE);
+  const link = url.toString();
+
+  const { data } = await axios.post(link, payload);
+  const { username } = payload;
+  const { token, role } = data;
+
+  const expires = Date.now() + 7 * 24 * 60 * 60 * 1000;
+  const session = await encrypt({ token, username, role });
+  const store = await cookies();
+
+  store.set("session", session, {
+    expires: new Date(expires),
+    httpOnly: true,
+    secure: true,
+    sameSite: "lax",
+    path: "/",
+  });
+
+  return true;
+}
+
+export async function authRegister(payload: RegisterPayload) {
+  const url = new URL(PATH + "/register", BASE);
+  const link = url.toString();
+
+  await axios.post(link, payload);
+  await authLogin(payload);
+
+  return true;
+}
+
+export async function authLogout() {
+  const store = await cookies();
+  store.delete("session");
+
+  return true;
+}
+
+export async function authProfile() {
+  const url = new URL(PATH + "/profile", BASE);
+  const link = url.toString();
+
+  const store = await cookies();
+  const session = store.get("session")?.value;
+  const { token } = await decrypt(session);
+  const { data } = await axios.get<User>(link, {
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+
+  return data;
 }

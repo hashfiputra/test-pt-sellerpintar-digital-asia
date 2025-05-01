@@ -18,22 +18,22 @@ export type Categories = {
   totalPages: number;
 };
 
-export type GetCategoriesProps = {
+export type GetCategoriesPayload = {
   search?: string;
   limit?: number;
   page?: number;
 };
 
-export type GetCategoryAllProps = Pick<
-  GetCategoriesProps, "search"
+export type GetCategoryAllPayload = Pick<
+  GetCategoriesPayload, "search"
 >;
 
-export async function getCategories(props: GetCategoriesProps = {}) {
+export async function getCategories(payload: GetCategoriesPayload = {}) {
   const url = new URL(PATH, BASE);
-  const limitParsed = props.limit ? Math.abs(props.limit).toString() : null;
-  const pageParsed = props.page ? Math.abs(props.page).toString() : null;
+  const limitParsed = payload.limit ? Math.abs(payload.limit).toString() : null;
+  const pageParsed = payload.page ? Math.abs(payload.page).toString() : null;
 
-  if (props.search) url.searchParams.set("search", props.search);
+  if (payload.search) url.searchParams.set("search", payload.search);
   if (limitParsed) url.searchParams.set("limit", limitParsed);
   if (pageParsed) url.searchParams.set("page", pageParsed);
 
@@ -43,9 +43,9 @@ export async function getCategories(props: GetCategoriesProps = {}) {
   return data;
 }
 
-export async function getCategoriesAll({ search }: GetCategoryAllProps = {}) {
+export async function getCategoriesAll(payload: GetCategoryAllPayload = {}) {
   const url = new URL(PATH, BASE);
-  if (search) url.searchParams.set("search", search);
+  if (payload.search) url.searchParams.set("search", payload.search);
   url.searchParams.set("page", "1");
 
   let current = 1;

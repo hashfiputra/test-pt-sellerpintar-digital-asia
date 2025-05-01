@@ -461,6 +461,11 @@
   b, strong {
     @apply font-bold;
   }
+
+  input::-ms-reveal,
+  input::-ms-clear {
+    @apply hidden;
+  }
 }
 
 @utility home {
@@ -562,6 +567,55 @@
           @apply text-sm text-dropdown-foreground;
         }
       }
+    }
+  }
+}
+
+@utility profile {
+  @apply flex
+  items-center justify-center
+  transition-[height] duration-500 ease-out
+  px-5 pt-16 h-svh;
+
+  .profile__container {
+    @apply container flex flex-col
+    items-center justify-center gap-9
+    px-4 py-6;
+  }
+
+  .profile__title {
+    @apply text-xl font-semibold;
+  }
+
+  .profile__content {
+    @apply flex flex-col
+    items-center gap-6
+    w-full;
+  }
+
+  .profile__avatar {
+    @apply text-2xl size-17;
+  }
+
+  .profile__details {
+    @apply flex flex-col gap-3
+    w-full;
+  }
+
+  .profile__detail {
+    @apply flex flex-row
+    items-center justify-start
+    bg-gray-100 border border-border rounded-sm
+    px-3 py-2.5;
+
+    .profile__detail-label {
+      @apply flex flex-row basis-1/3
+      justify-between
+      font-semibold;
+    }
+
+    .profile__detail-value {
+      @apply flex-1 text-center;
     }
   }
 }

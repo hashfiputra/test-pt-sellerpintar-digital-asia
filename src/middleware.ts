@@ -7,12 +7,12 @@ import { decrypt } from "@lib/auth";
 
 export async function middleware(request: NextRequest) {
   const session = request.cookies.get("session")?.value;
-  const login = new URL("/login", request.url);
+  const login = new URL("/auth/login", request.url);
   const home = new URL("/", request.url);
 
-  const isLogin = request.nextUrl.pathname.startsWith("/login");
-  const isRegister = request.nextUrl.pathname.startsWith("/register");
-  const isProfile = request.nextUrl.pathname.startsWith("/profile");
+  const isLogin = request.nextUrl.pathname.startsWith("/auth/login");
+  const isRegister = request.nextUrl.pathname.startsWith("/auth/register");
+  const isProfile = request.nextUrl.pathname.startsWith("/auth/profile");
   const isDashboard = request.nextUrl.pathname.startsWith("/dashboard");
   const isPreview = request.nextUrl.pathname.startsWith("/preview");
   const isEditor = isDashboard || isPreview;

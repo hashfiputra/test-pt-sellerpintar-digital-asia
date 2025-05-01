@@ -26,6 +26,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7",
+    "react-timeago": "^8",
     "sonner": "^2",
     "tailwind-merge": "^3",
     "usehooks-ts": "^3",
