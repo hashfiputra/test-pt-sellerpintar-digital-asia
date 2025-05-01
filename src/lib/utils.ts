@@ -31,14 +31,13 @@ export function getExcerpt(html: string, min: number = 50, max: number = 100) {
   return excerpt + postfix;
 }
 
-export function getDate(time: string) {
-  const number = toNumber(time);
-  const date = new Date(number);
+export function parseDate(date: string) {
+  const parsed = new Date(date);
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "long",
     day: "numeric",
   };
 
-  return date.toLocaleDateString("en-US", options);
+  return parsed.toLocaleDateString("en-US", options);
 }

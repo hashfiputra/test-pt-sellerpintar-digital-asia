@@ -571,6 +571,60 @@
   }
 }
 
+@utility article {
+  #content {
+    @apply flex flex-col
+    items-center justify-center
+    gap-6 px-5 pt-26 pb-10;
+
+    .container {
+      @apply flex flex-col
+      gap-6 w-full;
+    }
+
+    .headline {
+      @apply flex flex-col
+      items-center justify-center
+      gap-4 text-center;
+
+      h1 {
+        @apply text-2xl font-semibold;
+      }
+    }
+
+    .meta {
+      @apply flex flex-col
+      text-sm text-dropdown-foreground
+      font-medium;
+
+      .meta__item {
+        @apply flex flex-row
+        items-center justify-center
+        gap-1;
+      }
+
+      .meta__detail {
+        @apply text-xs;
+      }
+
+      .meta__divider {
+        @apply size-4;
+      }
+    }
+
+    .thumbnail {
+      @apply relative w-full h-60
+      rounded-[12px] overflow-hidden
+      *:object-cover;
+    }
+
+    .content {
+      @apply flex flex-col
+      gap-4 text-sm text-slate-700;
+    }
+  }
+}
+
 @utility profile {
   @apply flex
   items-center justify-center

@@ -41,6 +41,10 @@ export type GetArticlesPayload = {
   page?: number;
 };
 
+export type GetArticlePayload = {
+  id: string;
+};
+
 export async function getArticles(payload: GetArticlesPayload = {}) {
   const url = new URL(PATH, BASE);
   const pageParsed = payload.page ? Math.abs(payload.page).toString() : null;
@@ -62,14 +66,20 @@ export async function getArticles(payload: GetArticlesPayload = {}) {
   const { data } = await axios.get<Articles>(link);
 
   for (const item of data.data) {
-    const excerpt = getExcerpt(item.content);
-    const createdMs = Date.parse(item.createdAt);
-    const updatedMs = Date.parse(item.updatedAt);
-
-    item.excerpt = excerpt || "Content is empty, there's no excerpt to display";
-    item.createdAt = new Date(createdMs).getTime().toString();
-    item.updatedAt = new Date(updatedMs).getTime().toString();
+    const basic = "Content is empty, there's no excerpt to display";
+    item.excerpt = getExcerpt(item.content) || basic;
   }
+
+  return data;
+}
+
+export async function getArticle(payload: GetArticlePayload) {
+  const url = new URL(PATH + "/" + payload.id, BASE);
+  const link = url.toString();
+
+  const { data } = await axios.get<Article>(link);
+  const basic = "Content is empty, there's no excerpt to display";
+  data.excerpt = getExcerpt(data.content) || basic;
 
   return data;
 }

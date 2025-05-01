@@ -12,7 +12,7 @@ import * as CardUI from "@ui/Card";
 import { useFilter } from "@contexts/FilterContext";
 
 import { type Articles } from "@lib/articles";
-import { getDate, toNumber } from "@lib/utils";
+import { parseDate, toNumber } from "@lib/utils";
 
 export type HomeArticlesProps = {
   articles: Articles;
@@ -179,7 +179,7 @@ export default function HomeArticles({ articles }: HomeArticlesProps) {
               <CardUI.CardImage src={imageUrl} alt={title}/>
             </CardUI.CardThumbnail>
             <CardUI.CardContent>
-              <CardUI.CardDate>{getDate(createdAt)}</CardUI.CardDate>
+              <CardUI.CardDate>{parseDate(createdAt)}</CardUI.CardDate>
               <CardUI.CardTitle href={`/article/${id}`}>
                 {title}
               </CardUI.CardTitle>
