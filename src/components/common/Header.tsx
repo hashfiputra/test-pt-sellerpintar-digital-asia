@@ -66,14 +66,21 @@ export default function Header({ fixed, border = true }: HeaderProps) {
       </Link>
       {authenticated && (
         <Dialog>
-          <Dropdown>
-            <Avatar asChild>
+          <Dropdown modal={false}>
+            <div className="header__profile">
+              <Avatar asChild>
+                <DropdownTrigger>
+                  <AvatarFallback>
+                    {initial}
+                  </AvatarFallback>
+                </DropdownTrigger>
+              </Avatar>
               <DropdownTrigger>
-                <AvatarFallback>
-                  {initial}
-                </AvatarFallback>
+                <span className="header__username">
+                  {username}
+                </span>
               </DropdownTrigger>
-            </Avatar>
+            </div>
             <DropdownContent>
               <DropdownItem asChild>
                 <Link href="/auth/profile">My Account</Link>

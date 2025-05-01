@@ -38,7 +38,7 @@ export default function HomeHero({ categories }: HomeHeroProps) {
         </div>
         <div className="filters">
           <Select value={controlled} onValueChange={onChange}>
-            <SelectTrigger data-empty={!controlled}>
+            <SelectTrigger className="filters__category" data-empty={!controlled}>
               {controlled && <SelectReset onClick={onReset}/>}
               <SelectValue placeholder="Select category"/>
             </SelectTrigger>

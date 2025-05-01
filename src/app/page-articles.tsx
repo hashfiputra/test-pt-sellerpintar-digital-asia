@@ -114,7 +114,8 @@ export default function HomeArticles({ articles }: HomeArticlesProps) {
     }
   }, [current, limit, category, title]);
 
-  const last = Math.ceil(total / limit);
+  const sum = useMemo(() => Math.min(total, current * limit), [current, limit, total]);
+  const last = useMemo(() => Math.ceil(total / limit), [total, limit]);
   const items = useMemo(() => {
     const result = [];
     const start = Math.max(1, current);
@@ -172,70 +173,75 @@ export default function HomeArticles({ articles }: HomeArticlesProps) {
 
   return (
     <section className="section" id="articles" data-loading={loading}>
-      <div className="cards">
-        {data.map(({ id, imageUrl, title, createdAt, excerpt, category }) => (
-          <CardUI.Card key={id}>
-            <CardUI.CardThumbnail>
-              <CardUI.CardImage src={imageUrl} alt={title}/>
-            </CardUI.CardThumbnail>
-            <CardUI.CardContent>
-              <CardUI.CardDate>{parseDate(createdAt)}</CardUI.CardDate>
-              <CardUI.CardTitle href={`/article/${id}`}>
-                {title}
-              </CardUI.CardTitle>
-              <CardUI.CardDescription>{excerpt}</CardUI.CardDescription>
-              <CardUI.CardBadges>
-                <Badge>{category.name}</Badge>
-              </CardUI.CardBadges>
-            </CardUI.CardContent>
-          </CardUI.Card>
-        ))}
-        {!data.length && (
-          <div className="cards__empty">
-            <div className="cards__empty-icon">
-              <Shrimp className="cards__empty-svg"/>
-            </div>
-            <div className="cards__empty-content">
-              <div className="cards__empty-title">
-                Nothing found in here
+      <span className="counter">
+        Showing {sum} of {total} articles
+      </span>
+      <div className="container">
+        <div className="cards">
+          {data.map(({ id, imageUrl, title, createdAt, excerpt, category }) => (
+            <CardUI.Card key={id}>
+              <CardUI.CardThumbnail>
+                <CardUI.CardImage src={imageUrl} alt={title}/>
+              </CardUI.CardThumbnail>
+              <CardUI.CardContent>
+                <CardUI.CardDate>{parseDate(createdAt)}</CardUI.CardDate>
+                <CardUI.CardTitle href={`/article/${id}`}>
+                  {title}
+                </CardUI.CardTitle>
+                <CardUI.CardDescription>{excerpt}</CardUI.CardDescription>
+                <CardUI.CardBadges>
+                  <Badge>{category.name}</Badge>
+                </CardUI.CardBadges>
+              </CardUI.CardContent>
+            </CardUI.Card>
+          ))}
+          {!data.length && (
+            <div className="cards__empty">
+              <div className="cards__empty-icon">
+                <Shrimp className="cards__empty-svg"/>
               </div>
-              <div className="cards__empty-description">
-                There are currently no articles with this filter, try again later or change the filter.
+              <div className="cards__empty-content">
+                <div className="cards__empty-title">
+                  Nothing found in here
+                </div>
+                <div className="cards__empty-description">
+                  There are currently no articles with this filter, try again later or change the filter.
+                </div>
               </div>
             </div>
-          </div>
+          )}
+        </div>
+        {!!data.length && (
+          <PaginationUI.Pagination>
+            <PaginationUI.PaginationContent>
+              <PaginationUI.PaginationItem>
+                <PaginationUI.PaginationPrevious href="#" aria-disabled={current <= 1} onClick={onPrevious}/>
+              </PaginationUI.PaginationItem>
+              {(current >= last - 1 && last > 2) && (
+                <PaginationUI.PaginationItem key="pagination-ellipsis-left">
+                  <PaginationUI.PaginationEllipsis/>
+                </PaginationUI.PaginationItem>
+              )}
+              {(current > 1 && current === last) && (
+                <PaginationUI.PaginationItem>
+                  <PaginationUI.PaginationLink href="#" data-number={last - 1} isActive={false} onClick={onClick}>
+                    {last - 1}
+                  </PaginationUI.PaginationLink>
+                </PaginationUI.PaginationItem>
+              )}
+              {items.map(item => item)}
+              {(current <= last - 2 || last <= 2) && (
+                <PaginationUI.PaginationItem key="pagination-ellipsis-right">
+                  <PaginationUI.PaginationEllipsis/>
+                </PaginationUI.PaginationItem>
+              )}
+              <PaginationUI.PaginationItem>
+                <PaginationUI.PaginationNext href="#" aria-disabled={current >= last} onClick={onNext}/>
+              </PaginationUI.PaginationItem>
+            </PaginationUI.PaginationContent>
+          </PaginationUI.Pagination>
         )}
       </div>
-      {!!data.length && (
-        <PaginationUI.Pagination>
-          <PaginationUI.PaginationContent>
-            <PaginationUI.PaginationItem>
-              <PaginationUI.PaginationPrevious href="#" aria-disabled={current <= 1} onClick={onPrevious}/>
-            </PaginationUI.PaginationItem>
-            {(current >= last - 1 && last > 2) && (
-              <PaginationUI.PaginationItem key="pagination-ellipsis-left">
-                <PaginationUI.PaginationEllipsis/>
-              </PaginationUI.PaginationItem>
-            )}
-            {(current > 1 && current === last) && (
-              <PaginationUI.PaginationItem>
-                <PaginationUI.PaginationLink href="#" data-number={last - 1} isActive={false} onClick={onClick}>
-                  {last - 1}
-                </PaginationUI.PaginationLink>
-              </PaginationUI.PaginationItem>
-            )}
-            {items.map(item => item)}
-            {(current <= last - 2 || last <= 2) && (
-              <PaginationUI.PaginationItem key="pagination-ellipsis-right">
-                <PaginationUI.PaginationEllipsis/>
-              </PaginationUI.PaginationItem>
-            )}
-            <PaginationUI.PaginationItem>
-              <PaginationUI.PaginationNext href="#" aria-disabled={current >= last} onClick={onNext}/>
-            </PaginationUI.PaginationItem>,
-          </PaginationUI.PaginationContent>
-        </PaginationUI.Pagination>
-      )}
     </section>
   );
 }

@@ -20,23 +20,27 @@ export default async function ArticleOthers({ id, category }: ArticleOthersProps
   return (
     <section className="section" id="others">
       <h2 className="title">Other articles</h2>
-      {others.map(({ id, imageUrl, title, createdAt, excerpt, category }) => (
-        <CardUI.Card key={id}>
-          <CardUI.CardThumbnail>
-            <CardUI.CardImage src={imageUrl} alt={title}/>
-          </CardUI.CardThumbnail>
-          <CardUI.CardContent>
-            <CardUI.CardDate>{parseDate(createdAt)}</CardUI.CardDate>
-            <CardUI.CardTitle href={`/article/${id}`}>
-              {title}
-            </CardUI.CardTitle>
-            <CardUI.CardDescription>{excerpt}</CardUI.CardDescription>
-            <CardUI.CardBadges>
-              <Badge>{category.name}</Badge>
-            </CardUI.CardBadges>
-          </CardUI.CardContent>
-        </CardUI.Card>
-      ))}
+      {others.length > 0 && (
+        <div className="cards">
+          {others.map(({ id, imageUrl, title, createdAt, excerpt, category }) => (
+            <CardUI.Card key={id}>
+              <CardUI.CardThumbnail>
+                <CardUI.CardImage src={imageUrl} alt={title}/>
+              </CardUI.CardThumbnail>
+              <CardUI.CardContent>
+                <CardUI.CardDate>{parseDate(createdAt)}</CardUI.CardDate>
+                <CardUI.CardTitle href={`/article/${id}`}>
+                  {title}
+                </CardUI.CardTitle>
+                <CardUI.CardDescription>{excerpt}</CardUI.CardDescription>
+                <CardUI.CardBadges>
+                  <Badge>{category.name}</Badge>
+                </CardUI.CardBadges>
+              </CardUI.CardContent>
+            </CardUI.Card>
+          ))}
+        </div>
+      )}
       {!others.length && (
         <div className="empty">
           <div className="empty__icon">

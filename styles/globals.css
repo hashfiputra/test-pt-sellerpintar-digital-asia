@@ -436,14 +436,10 @@
     border-border outline-ring/50;
   }
 
-  html {
-    @apply scroll-smooth
-    overflow-x-hidden;
-  }
-
   body {
-    @apply bg-background text-foreground
-    text-base antialiased;
+    @apply bg-background
+    text-foreground text-base antialiased
+    scroll-smooth overflow-x-hidden;
   }
 
   h1, h2, h3, h4, h5, h6, blockquote, caption, figcaption, p, small {
@@ -473,7 +469,8 @@
     @apply relative flex
     items-center justify-center
     px-5 pt-26 pb-15 w-full h-156
-    bg-section-overlay text-section-overlay-foreground;
+    bg-section-overlay text-section-overlay-foreground
+    sm:pt-34.5 sm:pb-21.5 sm:h-125;
 
     &::before {
       @apply content-empty
@@ -485,7 +482,8 @@
 
     .container {
       @apply flex flex-col
-      items-center justify-center gap-10;
+      items-center justify-center gap-10
+      max-w-182.5;
     }
 
     .headline {
@@ -494,25 +492,34 @@
       text-center;
 
       h1 {
-        @apply text-4xl font-medium;
+        @apply text-4xl font-medium
+        sm:text-5xl;
       }
 
       h2 {
-        @apply text-xl font-normal;
+        @apply text-xl font-normal
+        sm:text-2xl;
       }
 
       h3 {
-        @apply text-sm font-bold;
+        @apply text-sm font-bold
+        sm:text-base;
       }
     }
 
     .filters {
       @apply flex flex-col gap-2
       bg-blue-500 rounded-[12px]
-      px-2.5 py-2.5 w-full;
+      px-2.5 py-2.5 w-full
+      sm:flex-row sm:w-fit;
+
+      .filters__category {
+        @apply sm:w-45;
+      }
 
       .filters__search {
-        @apply relative;
+        @apply relative
+        sm:w-100;
 
         .filters__search-icon {
           @apply absolute top-1/2 left-3 -translate-y-1/2
@@ -528,21 +535,32 @@
 
   #articles {
     @apply flex flex-col
-    items-center justify-center gap-6
-    px-5 pt-10 pb-15 transition-opacity duration-250 ease-out;
+    gap-4 px-5 pt-10 pb-15
+    transition-opacity duration-250 ease-out
+    sm:gap-6 sm:px-25 sm:pb-25;
 
     &[data-loading=true] {
       @apply opacity-50 pointer-events-none;
     }
 
-    .cards {
+    .counter {
+      @apply text-dropdown-foreground
+      text-sm font-medium sm:text-base;
+    }
+
+    .container {
       @apply flex flex-col
-      gap-10 w-full;
+      gap-6 sm:gap-15;
+    }
+
+    .cards {
+      @apply grid gap-10 w-full
+      lg:grid-cols-3 lg:gap-x-10 lg:gap-y-15;
 
       .cards__empty {
-        @apply flex flex-col
+        @apply flex flex-col col-span-full
         items-center justify-center gap-4
-        text-center h-65;
+        text-center h-65 sm:h-80;
 
         .cards__empty-icon {
           @apply rounded-full
@@ -556,7 +574,8 @@
 
         .cards__empty-content {
           @apply flex flex-col
-          items-center justify-center gap-2;
+          items-center justify-center gap-2
+          max-w-80;
         }
 
         .cards__empty-title {
@@ -575,7 +594,8 @@
   #content {
     @apply flex flex-col
     items-center justify-center
-    gap-6 px-5 pt-26 pb-10;
+    gap-6 px-5 pt-26 pb-10
+    sm:px-40 sm:pt-34;
 
     .container {
       @apply flex flex-col
@@ -586,10 +606,12 @@
       @apply flex flex-col
       items-center justify-center
       gap-4 text-center;
+    }
 
-      h1 {
-        @apply text-2xl font-semibold;
-      }
+    .title {
+      @apply text-2xl font-semibold
+      max-w-160.5
+      sm:text-3xl;
     }
 
     .meta {
@@ -613,7 +635,7 @@
     }
 
     .thumbnail {
-      @apply h-60;
+      @apply h-60 md:h-120;
     }
 
     .content {
@@ -624,10 +646,16 @@
 
   #others {
     @apply flex flex-col
-    gap-6 px-5 pt-10 pb-15;
+    gap-6 px-5 pt-10 pb-15
+    sm:px-45 sm:pb-25;
 
     .title {
       @apply text-xl font-bold;
+    }
+
+    .cards {
+      @apply grid gap-6 w-full
+      lg:grid-cols-3 lg:gap-x-10;
     }
 
     .empty {
@@ -647,7 +675,8 @@
 
       .empty__content {
         @apply flex flex-col
-        items-center justify-center gap-2;
+        items-center justify-center gap-2
+        max-w-80;
       }
 
       .empty__title {
@@ -665,12 +694,13 @@
   @apply flex
   items-center justify-center
   transition-[height] duration-500 ease-out
-  px-5 pt-16 h-svh;
+  px-5 pt-16 h-svh
+  sm:pt-24;
 
   .profile__container {
-    @apply container flex flex-col
+    @apply flex flex-col
     items-center justify-center gap-9
-    px-4 py-6;
+    px-4 py-6 w-100;
   }
 
   .profile__title {
@@ -695,7 +725,9 @@
   .profile__detail {
     @apply flex flex-row
     items-center justify-start
-    bg-gray-100 border border-border rounded-sm
+    bg-gray-100 rounded-sm
+    outline-border outline-1
+    -outline-offset-1
     px-3 py-2.5;
 
     .profile__detail-label {
@@ -714,12 +746,14 @@
   @apply flex
   items-center justify-center
   transition-[height] duration-500 ease-out
-  px-4 h-svh;
+  px-4 h-svh sm:bg-gray-100;
 
   .login__form {
     @apply flex flex-col gap-6
     items-center justify-center
-    px-2.5 py-6 w-full max-w-100;
+    px-2.5 py-6 w-full max-w-100
+    bg-background rounded-[12px]
+    md:px-4 md:py-10;
   }
 
   .login__img {
@@ -759,12 +793,14 @@
   @apply flex
   items-center justify-center
   transition-[height] duration-500 ease-out
-  px-4 h-svh;
+  px-4 h-svh sm:bg-gray-100;
 
   .register__form {
     @apply flex flex-col gap-6
     items-center justify-center
-    px-2.5 py-6 w-full max-w-100;
+    px-2.5 py-6 w-full max-w-100
+    bg-background rounded-[12px]
+    md:px-4 md:py-10;
   }
 
   .register__img {
@@ -805,18 +841,19 @@
 }
 
 @utility header {
-  @apply fixed top-0 w-full z-10
+  @apply fixed top-0 w-full z-50
   flex items-center justify-between
   bg-transparent border-b border-transparent
   transition-colors duration-250 ease-out
-  px-5 py-4;
+  data-[border=false]:border-none
+  px-5 py-4 sm:px-15 sm:py-8;
 
   &[data-scrolled=true] {
     @apply bg-background border-border;
-  }
 
-  &[data-border=false] {
-    @apply border-none;
+    .header__username {
+      @apply text-foreground;
+    }
   }
 
   .header__img {
@@ -825,6 +862,17 @@
 
   .header__img path {
     @apply transition-colors duration-250 ease-out;
+  }
+
+  .header__profile {
+    @apply flex flex-row
+    items-center gap-2;
+  }
+
+  .header__username {
+    @apply hidden sm:block
+    text-background font-medium underline
+    transition-colors duration-250 ease-out;
   }
 
   .header__login {
@@ -846,7 +894,9 @@
 
   .footer__content {
     @apply flex flex-col
-    items-center justify-center gap-2;
+    items-center justify-center
+    gap-x-4 gap-y-2
+    sm:flex-row;
   }
 
   .footer__img {

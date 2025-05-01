@@ -27,7 +27,7 @@ export default function ArticleContent({ article }: ArticleContentProps) {
               <span>Created by {article.user.username}</span>
             </span>
           </div>
-          <h1>{article.title}</h1>
+          <h1 className="title">{article.title}</h1>
         </div>
         <CardThumbnail className="thumbnail">
           <CardImage src={article.imageUrl} alt={article.title}/>
