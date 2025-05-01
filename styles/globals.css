@@ -613,14 +613,50 @@
     }
 
     .thumbnail {
-      @apply relative w-full h-60
-      rounded-[12px] overflow-hidden
-      *:object-cover;
+      @apply h-60;
     }
 
     .content {
       @apply flex flex-col
       gap-4 text-sm text-slate-700;
+    }
+  }
+
+  #others {
+    @apply flex flex-col
+    gap-6 px-5 pt-10 pb-15;
+
+    .title {
+      @apply text-xl font-bold;
+    }
+
+    .empty {
+      @apply flex flex-col
+      items-center justify-center gap-4
+      text-center h-80;
+
+      .empty__icon {
+        @apply rounded-full
+        bg-destructive/15 p-5;
+      }
+
+      .empty__svg {
+        @apply text-destructive/85
+        size-12;
+      }
+
+      .empty__content {
+        @apply flex flex-col
+        items-center justify-center gap-2;
+      }
+
+      .empty__title {
+        @apply text-xl font-bold;
+      }
+
+      .empty__description {
+        @apply text-sm text-dropdown-foreground;
+      }
     }
   }
 }

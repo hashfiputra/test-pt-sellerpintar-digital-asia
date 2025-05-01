@@ -1,8 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import TimeAgo from "react-timeago";
 import { Dot } from "lucide-react";
+
+import { CardThumbnail, CardImage } from "@ui/Card";
 
 import { parseDate } from "@lib/utils";
 import { type Article } from "@lib/articles";
@@ -28,9 +29,9 @@ export default function ArticleContent({ article }: ArticleContentProps) {
           </div>
           <h1>{article.title}</h1>
         </div>
-        <div className="thumbnail">
-          <Image src={article.imageUrl} alt={article.title} fill/>
-        </div>
+        <CardThumbnail className="thumbnail">
+          <CardImage src={article.imageUrl} alt={article.title}/>
+        </CardThumbnail>
         <div className="content" dangerouslySetInnerHTML={{ __html: article.content }}/>
       </div>
     </section>

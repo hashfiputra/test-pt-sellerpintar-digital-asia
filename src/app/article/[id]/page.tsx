@@ -8,6 +8,7 @@ import Footer from "@common/Footer";
 import { getArticle } from "@lib/articles";
 
 import ArticleContent from "./page-content";
+import ArticleOthers from "./page-others";
 
 export type ArticleProps = {
   params: Promise<{ id: string }>;
@@ -63,12 +64,14 @@ export async function generateMetadata({ params }: ArticleProps): Promise<Metada
 export default async function Article({ params }: ArticleProps) {
   const { id } = await params;
   const article = await getSharedData(id);
+  const { categoryId } = article;
 
   return (
     <>
       <Header fixed={true}/>
       <main className="article" id="skip">
         <ArticleContent article={article}/>
+        <ArticleOthers id={id} category={categoryId}/>
       </main>
       <Footer/>
     </>
