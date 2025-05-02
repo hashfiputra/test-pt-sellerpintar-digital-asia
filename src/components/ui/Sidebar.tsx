@@ -48,6 +48,7 @@ export type SidebarProps = React.ComponentProps<"div"> & {
 export type SidebarMenuButtonProps = React.ComponentProps<"button"> & {
   asChild?: boolean;
   isActive?: boolean;
+  preventClose?: boolean;
   tooltip?: string | React.ComponentProps<typeof TooltipContent>;
 } & VariantProps<typeof sidebarMenuButtonVariants>;
 
@@ -530,7 +531,8 @@ export function SidebarMenuItem(props: SidebarMenuItemProps) {
 }
 
 export function SidebarMenuButton({ tooltip, ...props }: SidebarMenuButtonProps) {
-  const { variant = "default", size = "default", asChild, isActive, className, onClick, ...rest } = props;
+  const { variant = "default", size = "default", ...others } = props;
+  const { asChild, isActive, preventClose, className, onClick, ...rest } = others;
   const Component = asChild ? Slot : "button";
 
   const { isMobile, state, setOpenMobile } = useSidebar();
@@ -545,6 +547,7 @@ export function SidebarMenuButton({ tooltip, ...props }: SidebarMenuButtonProps)
     className={classes}
     onClick={(event) => {
       onClick?.(event);
+      if (preventClose) return;
       if (isMobile) setOpenMobile(false);
     }}
     {...rest}
