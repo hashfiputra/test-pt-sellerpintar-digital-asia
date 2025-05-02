@@ -10,10 +10,10 @@ export default function DashboardLayout({
   return (
     <SidebarProvider>
       <DashboardSidebar/>
-      <main className="dashboard" id="skip">
+      <div className="dashboard">
         <DashboardHeader/>
         {children}
-      </main>
+      </div>
     </SidebarProvider>
   );
 }

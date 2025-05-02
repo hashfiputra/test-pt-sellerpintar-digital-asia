@@ -3,7 +3,7 @@ import { isAxiosError } from "axios";
 
 import { authProfile } from "@lib/auth";
 
-export default async function GET() {
+export async function GET() {
   try {
     const data = await authProfile();
     return NextResponse.json({ success: true, ...data }, { status: 200 });
