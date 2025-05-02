@@ -698,7 +698,8 @@
 }
 
 @utility dashboard {
-  @apply w-full;
+  @apply shrink-1 w-full
+  min-w-0;
 
   #skip {
     @apply flex flex-row
@@ -714,11 +715,11 @@
     data-[loading=true]:pointer-events-none;
   }
 
-  .edit, .delete {
+  .preview, .edit, .delete {
     @apply underline;
   }
 
-  .edit {
+  .preview, .edit {
     @apply text-primary;
   }
 
@@ -784,6 +785,7 @@
     }
   }
 
+  #articles,
   #category {
     @apply border border-border
     overflow-hidden rounded-[12px]
@@ -806,21 +808,115 @@
       sm:flex-row sm:p-6 sm:*:w-auto;
     }
 
+    .filters {
+      @apply flex flex-col
+      items-center justify-center gap-1
+      sm:flex-row sm:gap-2;
+
+      .filters__category {
+        @apply relative w-full
+        sm:w-auto;
+
+        [data-slot=select-trigger] {
+          @apply gap-1.5;
+        }
+
+        [data-slot=select-value] {
+          @apply text-foreground
+          font-medium;
+        }
+
+        svg {
+          @apply text-foreground opacity-100
+          size-5;
+        }
+      }
+    }
+
+    .filters__search,
     .search {
       @apply relative
       w-full h-full
-      sm:max-w-60;
+      sm:w-60;
 
+      .filters__search-icon,
       .search__icon {
         @apply absolute left-3 top-1/2 -translate-y-1/2
         text-slate-400 size-5
         pointer-events-none;
       }
 
+      .filters__search-control,
       .search__control {
         @apply h-9 pl-9.5 border-slate-300
         placeholder:text-slate-400;
       }
+    }
+  }
+
+  #articles-table {
+    thead th {
+      @apply w-1/5;
+    }
+
+    tbody td:nth-child(2) {
+      @apply text-left
+      whitespace-normal;
+    }
+
+    .image {
+      @apply flex
+      items-center justify-center;
+
+      .image__wrapper {
+        @apply relative size-15
+        overflow-hidden rounded-sm;
+      }
+
+      img {
+        @apply object-cover;
+      }
+    }
+  }
+
+  #articles-create,
+  #articles-edit {
+    @apply w-full
+    border rounded-[12px];
+
+    .head {
+      @apply flex flex-row
+      gap-1 p-4 sm:gap-2 sm:p-5;
+    }
+
+    .back {
+      @apply flex
+      items-center justify-center
+      [&_svg]:size-5;
+    }
+
+    .title {
+      @apply font-medium;
+    }
+
+    .form {
+      @apply flex flex-col
+      gap-6 p-5 sm:p-6;
+    }
+
+    .fields {
+      @apply flex flex-col
+      gap-4;
+    }
+
+    .content {
+      @apply [&_textarea]:h-36;
+    }
+
+    .buttons {
+      @apply flex flex-row
+      items-center justify-end
+      gap-1 py-3 sm:gap-2 sm:py-4;
     }
   }
 }

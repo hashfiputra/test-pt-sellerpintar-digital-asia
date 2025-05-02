@@ -11,6 +11,8 @@ import { SidebarTrigger } from "@ui/Sidebar";
 
 const items: Record<string, string> = {
   "/dashboard/articles": "Articles",
+  "/dashboard/articles-create": "Articles",
+  "/dashboard/articles-edit": "Articles",
   "/dashboard/category": "Category",
   "/dashboard/profile": "User Profile",
 };

@@ -2,7 +2,7 @@ import { isAxiosError } from "axios";
 import { NextResponse } from "next/server";
 
 import { toNumber } from "@lib/utils";
-import { getArticles, type GetArticlesPayload } from "@lib/articles";
+import { type GetArticlesPayload, getArticles, createArticle } from "@lib/articles";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -22,6 +22,21 @@ export async function GET(request: Request) {
   try {
     const data = await getArticles(payload);
     return NextResponse.json({ success: true, ...data }, { status: 200 });
+  } catch (e) {
+    const response = isAxiosError(e) ? e.response : null;
+    const message = response?.data?.error || "Something went wrong, try again later";
+    const status = response?.status || 400;
+    return NextResponse.json({ success: false, message }, { status });
+  }
+}
+
+export async function POST(request: Request) {
+  try {
+    const payload = await request.json();
+    await createArticle(payload);
+
+    const message = "Article created successfully";
+    return NextResponse.json({ success: true, message }, { status: 200 });
   } catch (e) {
     const response = isAxiosError(e) ? e.response : null;
     const message = response?.data?.error || "Something went wrong, try again later";
