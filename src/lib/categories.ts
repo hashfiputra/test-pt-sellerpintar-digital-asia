@@ -1,4 +1,7 @@
+import { cookies } from "next/headers";
 import axios from "axios";
+
+import { decrypt } from "@lib/auth";
 
 const BASE = "https://test-fe.mysellerpintar.com";
 const PATH = "/api/categories";
@@ -27,6 +30,10 @@ export type GetCategoriesPayload = {
 export type GetCategoryAllPayload = Pick<
   GetCategoriesPayload, "search"
 >;
+
+export type CreateCategoryPayload = { name: string; };
+export type EditCategoryPayload = { id: string; name: string; };
+export type DeleteCategoryPayload = { id: string; };
 
 export async function getCategories(payload: GetCategoriesPayload = {}) {
   const url = new URL(PATH, BASE);
@@ -63,6 +70,47 @@ export async function getCategoriesAll(payload: GetCategoryAllPayload = {}) {
     data.data = [...data.data, ...update.data];
     data.currentPage = current;
   }
+
+  return data;
+}
+
+export async function createCategory(payload: CreateCategoryPayload) {
+  const store = await cookies();
+  const session = store.get("session")?.value;
+  const { token } = await decrypt(session);
+
+  const url = new URL(PATH, BASE);
+  const link = url.toString();
+  const config = { headers: { "Authorization": `Bearer ${token}` } };
+  const { data } = await axios.post<Category>(link, payload, config);
+
+  return data;
+}
+
+export async function editCategory(payload: EditCategoryPayload) {
+  const store = await cookies();
+  const session = store.get("session")?.value;
+  const { token } = await decrypt(session);
+
+  const { id, name } = payload;
+  const url = new URL(PATH + "/" + id, BASE);
+  const link = url.toString();
+  const config = { headers: { "Authorization": `Bearer ${token}` } };
+  const { data } = await axios.put<Category>(link, { name }, config);
+
+  return data;
+}
+
+export async function deleteCategory(payload: DeleteCategoryPayload) {
+  const store = await cookies();
+  const session = store.get("session")?.value;
+  const { token } = await decrypt(session);
+
+  const { id } = payload;
+  const url = new URL(PATH + "/" + id, BASE);
+  const link = url.toString();
+  const config = { headers: { "Authorization": `Bearer ${token}` } };
+  const { data } = await axios.delete(link, config);
 
   return data;
 }

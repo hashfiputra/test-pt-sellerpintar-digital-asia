@@ -32,7 +32,7 @@ export function Pagination(props: PaginationProps) {
 
 export function PaginationContent(props: PaginationContentProps) {
   const { className, ...rest } = props;
-  const classes = classMerge("flex flex-row items-center gap-1.5", className);
+  const classes = classMerge("flex flex-row items-center gap-2", className);
 
   return <ul data-slot="pagination-content" className={classes} {...rest}/>;
 }

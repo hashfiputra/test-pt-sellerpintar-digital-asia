@@ -12,7 +12,9 @@ export async function POST(request: Request) {
     const message = "Login successful, redirecting to homepage...";
     return NextResponse.json({ success: true, message }, { status: 200 });
   } catch (e) {
-    const message = isAxiosError(e) ? e.response?.data?.error : "Something went wrong, try again later";
-    return NextResponse.json({ success: false, message }, { status: 400 });
+    const response = isAxiosError(e) ? e.response : null;
+    const message = response?.data?.error || "Something went wrong, try again later";
+    const status = response?.status || 400;
+    return NextResponse.json({ success: false, message }, { status });
   }
 }

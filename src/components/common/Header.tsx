@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { CircleGauge, Loader2, LogIn, LogOut } from "lucide-react";
+import { useIsMounted } from "usehooks-ts";
 import Link from "next/link";
 
 import { useLogout } from "@hooks/useLogout";
@@ -27,19 +28,16 @@ export type HeaderProps = {
 };
 
 export default function Header({ fixed, border = true }: HeaderProps) {
+  const mounted = useIsMounted();
   const { loading, logout } = useLogout();
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { authenticated, username, role } = useSession() || {};
   const initial = useMemo(() => username?.charAt(0).toUpperCase(), [username]);
 
   useEffect(() => {
     if (fixed) return setScrolled(true);
-    if (!mounted) {
-      setScrolled(window.scrollY > 10);
-      setMounted(true);
-    }
+    if (!mounted()) setScrolled(window.scrollY > 10);
 
     const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
@@ -69,7 +67,7 @@ export default function Header({ fixed, border = true }: HeaderProps) {
                 </span>
               </DropdownTrigger>
             </div>
-            <DropdownContent>
+            <DropdownContent align="end" sideOffset={20}>
               <DropdownItem asChild>
                 <Link href="/auth/profile">My Account</Link>
               </DropdownItem>
@@ -103,9 +101,20 @@ export default function Header({ fixed, border = true }: HeaderProps) {
         </Dialog>
       )}
       {!authenticated && (
-        <Link className="header__login" href="/auth/login">
-          <LogIn className="header__login-icon"/>
-        </Link>
+        <div className="header__auth">
+          <Link className="header__auth-visual" href="/auth/login">
+            <LogIn className="header__auth-icon"/>
+          </Link>
+          <div className="header__auth-text">
+            <Link className="header__auth-login" href="/auth/login">
+              Login
+            </Link>
+            <span> / </span>
+            <Link className="header__auth-register" href="/auth/register">
+              Register
+            </Link>
+          </div>
+        </div>
       )}
     </header>
   );
