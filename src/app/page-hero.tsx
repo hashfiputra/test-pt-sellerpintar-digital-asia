@@ -38,10 +38,12 @@ export default function HomeHero({ categories }: HomeHeroProps) {
         </div>
         <div className="filters">
           <Select value={controlled} onValueChange={onChange}>
-            <SelectTrigger className="filters__category" data-empty={!controlled}>
+            <div className="filters__category">
               {controlled && <SelectReset onClick={onReset}/>}
-              <SelectValue placeholder="Select category"/>
-            </SelectTrigger>
+              <SelectTrigger data-empty={!controlled}>
+                <SelectValue placeholder="Select category"/>
+              </SelectTrigger>
+            </div>
             <SelectContent>
               {categories.data.map((category) => (
                 <SelectItem value={category.id} key={category.id}>

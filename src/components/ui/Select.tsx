@@ -36,13 +36,13 @@ export function SelectReset(props: SelectResetProps) {
   const classes = classMerge(
     "absolute top-1/2 -left-[1px] -translate-y-1/2 " +
     "flex items-center justify-center cursor-pointer " +
-    "size-10 z-10",
+    "text-select-foreground size-10 z-10",
     className,
   );
 
   return (
     <span data-slot="select-reset" className={classes} {...rest}>
-      <X data-slot="select-reset-icon"/>
+      <X data-slot="select-reset-icon" className="size-4"/>
     </span>
   );
 }

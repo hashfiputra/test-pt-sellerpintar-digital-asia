@@ -86,8 +86,8 @@ export default function Header({ fixed, border = true }: HeaderProps) {
                 <Link href="/auth/profile">My Account</Link>
               </DropdownItem>
               {role === "Admin" && (
-                <DropdownItem>
-                  <CircleGauge/> Dashboard
+                <DropdownItem asChild>
+                  <Link href="/dashboard"><CircleGauge/> Dashboard</Link>
                 </DropdownItem>
               )}
               <DialogTrigger asChild>

@@ -26,6 +26,7 @@
       "@ui/*": ["./src/components/ui/*"],
       "@config/*": ["./src/config/*"],
       "@contexts/*": ["./src/contexts/*"],
+      "@hooks/*": ["./src/hooks/*"],
       "@utils/*": ["./src/utils/*"],
       "@lib/*": ["./src/lib/*"],
       "@schemas/*": ["./src/schemas/*"],
