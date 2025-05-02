@@ -7,6 +7,7 @@ import { decrypt } from "@lib/auth";
 
 export async function middleware(request: NextRequest) {
   const session = request.cookies.get("session")?.value;
+  const dashboardHome = new URL("/dashboard/articles", request.url);
   const login = new URL("/auth/login", request.url);
   const home = new URL("/", request.url);
 
@@ -14,8 +15,7 @@ export async function middleware(request: NextRequest) {
   const isRegister = request.nextUrl.pathname.startsWith("/auth/register");
   const isProfile = request.nextUrl.pathname.startsWith("/auth/profile");
   const isDashboard = request.nextUrl.pathname.startsWith("/dashboard");
-  const isPreview = request.nextUrl.pathname.startsWith("/preview");
-  const isEditor = isDashboard || isPreview;
+  const isDashboardRoot = request.nextUrl.pathname === "/dashboard";
   const isAuth = isLogin || isRegister;
 
   try {
@@ -23,14 +23,15 @@ export async function middleware(request: NextRequest) {
     const isAdmin = role === "Admin";
     const isLoggedIn = !!token;
 
-    if (!isAdmin && isEditor) return NextResponse.redirect(home);
+    if (isAdmin && isDashboardRoot) return NextResponse.redirect(dashboardHome);
+    if (!isAdmin && isDashboard) return NextResponse.redirect(home);
     if (!isLoggedIn && isProfile) return NextResponse.redirect(login);
     if (isLoggedIn && isAuth) return NextResponse.redirect(home);
   } catch {
     const store = await cookies();
     store.delete("session");
 
-    if (isEditor) return NextResponse.redirect(home);
+    if (isDashboard) return NextResponse.redirect(home);
     if (isProfile) return NextResponse.redirect(login);
   }
 

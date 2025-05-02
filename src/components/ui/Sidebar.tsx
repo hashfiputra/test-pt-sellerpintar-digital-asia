@@ -530,10 +530,10 @@ export function SidebarMenuItem(props: SidebarMenuItemProps) {
 }
 
 export function SidebarMenuButton({ tooltip, ...props }: SidebarMenuButtonProps) {
-  const { asChild = false, isActive = false, variant = "default", size = "default", className, ...rest } = props;
+  const { variant = "default", size = "default", asChild, isActive, className, onClick, ...rest } = props;
   const Component = asChild ? Slot : "button";
 
-  const { isMobile, state } = useSidebar();
+  const { isMobile, state, setOpenMobile } = useSidebar();
   const variants = sidebarMenuButtonVariants({ variant, size });
   const classes = classMerge(variants, className);
 
@@ -541,8 +541,12 @@ export function SidebarMenuButton({ tooltip, ...props }: SidebarMenuButtonProps)
     data-slot="sidebar-menu-button"
     data-sidebar="menu-button"
     data-size={size}
-    data-active={isActive}
+    data-active={!!isActive}
     className={classes}
+    onClick={(event) => {
+      onClick?.(event);
+      if (isMobile) setOpenMobile(false);
+    }}
     {...rest}
   />;
 

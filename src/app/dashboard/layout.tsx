@@ -1,6 +1,7 @@
 import { type ReactNode } from "react";
-import { SidebarProvider, SidebarTrigger } from "@ui/Sidebar";
+import { SidebarProvider } from "@ui/Sidebar";
 
+import DashboardHeader from "./layout-header";
 import DashboardSidebar from "./layout-sidebar";
 
 export default function DashboardLayout({
@@ -10,7 +11,7 @@ export default function DashboardLayout({
     <SidebarProvider>
       <DashboardSidebar/>
       <main className="dashboard" id="skip">
-        <SidebarTrigger/>
+        <DashboardHeader/>
         {children}
       </main>
     </SidebarProvider>
