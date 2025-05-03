@@ -45,7 +45,8 @@ List of things I add or change from the design:
 - A login/logout navigation on home header
 - Removed other articles section in preview article, since for me it doesn't make sense for preview have a recommendation
 - Dropdown account detail (menu in account for logging out and go to profile) is scrollable instead of scroll lock, since I think it's more UI friendly
-- Added UI for empty state on articles
+- Removed `password` field in user profile page, since I don't think it's a good idea to show the password there (or even anywhere in client side), replaced with field `joined at` instead
+- Added UI for empty state on articles, UI for loading state in button, UI for toast error/success message when requesting API
 - And maybe some other minor things I forgot to mention here...
 
 ## 😔 Things I miss
