@@ -45,6 +45,7 @@ List of things I add or change from the design:
 - A login/logout navigation on home header
 - Removed other articles section in preview article, since for me it doesn't make sense for preview have a recommendation
 - Dropdown account detail (menu in account for logging out and go to profile) is scrollable instead of scroll lock, since I think it's more UI friendly
+- Added UI for empty state on articles
 - And maybe some other minor things I forgot to mention here...
 
 ## 😔 Things I miss
@@ -52,3 +53,4 @@ List of things I add or change from the design:
 List of things I miss/work in progress:
 
 - The text rich input in creating/editing article, I can't seems find a good library to use for this, most of the library out there need to be tweaked/style alot, with the time I had I don't have that kind of luxury
+- Making dummy data for backup from API, I can't seem to find the time to make this
