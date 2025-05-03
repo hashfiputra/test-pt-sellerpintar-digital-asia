@@ -11,6 +11,7 @@ This is my implementation code for the Figma design of a web article. My live �
 - [usehooks-ts](https://usehooks-ts.com/introduction) 👉🏻 Used for useful hooks, debounce, etc.
 - [react-timeago](https://github.com/nmn/react-timeago) 👉🏻 Used for relative time in-real time component
 - [react-dropzone](https://react-dropzone.js.org/) 👉🏻 Used for input file dropzone
+- [sonner](https://sonner.emilkowal.ski/) 👉🏻 Used for toast component
 - [axios](https://axios-http.com/)
 - [zod](https://zod.dev/)
 
@@ -51,7 +52,7 @@ List of things I add or change from the design:
 
 ## 😔 Things I miss
 
-List of things I miss/work in progress:
+List of things I didn't do/work in progress when submitting the web:
 
-- The text rich input in creating/editing article, I can't seems find a good library to use for this, most of the library out there need to be tweaked/style alot, with the time I had I don't have that kind of luxury
-- Making dummy data for backup from API, I can't seem to find the time to make this
+- The text rich input in creating/editing article, ~~I can't seems find a good library to use for this, most of the library out there need to be tweaked/style alot, with the time I had I don't have that kind of luxury~~. This is me in the future, there are plenty good library for this like [TipTap](https://shadcn-minimal-tiptap.vercel.app/) 🤦🏻‍♂️
+- Making dummy data for backup from API
