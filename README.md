@@ -1,6 +1,6 @@
 # The Journal
 
-This is my implementation code for the Figma desgign of a web article. My live 👉🏻[website](https://the-journal-hp.vercel.app/)👈🏻
+This is my implementation code for the Figma design of a web article. My live 👉🏻[website](https://the-journal-hp.vercel.app/)👈🏻
 
 ## 🚀 Technologies Used
 
