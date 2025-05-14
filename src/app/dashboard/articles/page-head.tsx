@@ -52,11 +52,11 @@ export default function DashboardArticlesHead({ total, categories }: DashboardAr
               </SelectUI.SelectTrigger>
             </div>
             <SelectUI.SelectContent>
-              {categories.data.map((category) => (
+              {categories.data.map((category) => category.id ? (
                 <SelectUI.SelectItem value={category.id} key={category.id}>
                   {category.name}
                 </SelectUI.SelectItem>
-              ))}
+              ) : null)}
             </SelectUI.SelectContent>
           </SelectUI.Select>
           <div className="filters__search">

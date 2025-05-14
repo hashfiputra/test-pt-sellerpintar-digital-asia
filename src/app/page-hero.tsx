@@ -45,11 +45,11 @@ export default function HomeHero({ categories }: HomeHeroProps) {
               </SelectTrigger>
             </div>
             <SelectContent>
-              {categories.data.map((category) => (
+              {categories.data.map((category) => category.id ? (
                 <SelectItem value={category.id} key={category.id}>
                   {category.name}
                 </SelectItem>
-              ))}
+              ) : null)}
             </SelectContent>
           </Select>
           <div className="filters__search">

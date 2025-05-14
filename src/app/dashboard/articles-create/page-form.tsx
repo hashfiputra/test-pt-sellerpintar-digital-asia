@@ -158,11 +158,11 @@ export default function DashboardArticlesCreateForm({ categories }: DashboardArt
                   </FormUI.FormControl>
                   <FormUI.FormMessage/>
                   <SelectUI.SelectContent>
-                    {categories.data.map((category) => (
+                    {categories.data.map((category) => category.id ? (
                       <SelectUI.SelectItem value={category.id} key={category.id}>
                         {category.name}
                       </SelectUI.SelectItem>
-                    ))}
+                    ) : null)}
                   </SelectUI.SelectContent>
                 </SelectUI.Select>
               </FormUI.FormItem>
